@@ -238,12 +238,15 @@ html,body { height:100%; overflow:hidden; background:var(--bg); color:var(--whit
 .sched-day-row.today { border-color:var(--red); }
 .sched-day-row.completed-row { border-color:rgba(61,187,119,.2); }
 .sched-day-row.rest-row { opacity:.4; }
+.sched-day-row.fast-extended { opacity:1 !important; border-color:rgba(136,102,238,.35); background:rgba(136,102,238,.06); }
+.sched-day-row.fast-deep { border-color:rgba(212,168,50,.3); background:rgba(212,168,50,.05); }
 .sched-day-num { font-family:'Barlow Condensed',sans-serif; font-size:19px; font-weight:900; width:32px; text-align:center; flex-shrink:0; color:var(--muted); }
 .sched-day-row.today .sched-day-num { color:var(--red); }
 .sched-day-row.completed-row .sched-day-num { color:var(--green); }
+.sched-day-row.fast-extended .sched-day-num { color:var(--purple); opacity:1; }
 .sched-day-info { flex:1; min-width:0; }
 .sched-day-name { font-size:12px; font-weight:600; margin-bottom:2px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; font-family:'Barlow Semi Condensed',sans-serif; }
-.sched-day-types { display:flex; gap:3px; flex-wrap:wrap; }
+.sched-day-types { display:flex; gap:3px; flex-wrap:wrap; align-items:center; }
 .type-chip { font-size:9px; font-family:'Barlow Condensed',sans-serif; font-weight:700; letter-spacing:.1em; text-transform:uppercase; padding:2px 5px; border-radius:3px; }
 .chip-ride { background:rgba(30,184,154,.15); color:var(--teal); }
 .chip-hiit { background:rgba(255,68,102,.15); color:#ff4466; }
@@ -254,6 +257,10 @@ html,body { height:100%; overflow:hidden; background:var(--bg); color:var(--whit
 .chip-bootcamp { background:rgba(200,90,240,.15); color:#cc80ee; }
 .chip-pullups { background:rgba(58,142,240,.15); color:var(--blue); }
 .chip-rest { background:rgba(255,255,255,.05); color:var(--muted); }
+/* Fast type chips — more prominent */
+.chip-fast17  { background:rgba(30,184,154,.12); color:var(--teal); border:1px solid rgba(30,184,154,.25); }
+.chip-fast24  { background:rgba(136,102,238,.2); color:var(--purple); border:1px solid rgba(136,102,238,.4); font-size:10px; padding:3px 7px; }
+.chip-fast20  { background:rgba(212,168,50,.18); color:var(--gold); border:1px solid rgba(212,168,50,.35); font-size:10px; padding:3px 7px; }
 .sched-day-status { font-size:15px; flex-shrink:0; }
 
 /* MEASUREMENT DAY ROW */
@@ -972,22 +979,31 @@ function renderSchedWeek(wk, days, today) {
   let html=`<div class="week-section"><div class="week-label-s">Week ${wk} · ${WK_STARTS[wk-1]||''} – ${WK_ENDS[wk-1]||''}</div>`;
   days.forEach(d => {
     const ws=SCHEDULE[d], isRest=ws===null, isToday=d===today, isDone=isDayFullyDone(d);
-    let cls='sched-day-row';
-    if(isToday)cls+=' today'; if(isDone)cls+=' completed-row'; if(isRest)cls+=' rest-row';
-    let icon = isDone?'✅':isToday?'▶':isRest?'—':d<today?'○':'';
-    let chips = isRest?`<span class="type-chip chip-rest">REST</span>`:
-      [...new Set(ws.map(w=>w.type))].map(t=>`<span class="type-chip chip-${t}">${T[t].label}</span>`).join('');
-    // Add fast type chip
     const rowFastType = getFastType(d);
-    const fastChipMap = {daily:'chip-fast17 · 17:7', extended:'chip-fast24 · 24HR FAST', deep:'chip-fast20 · 20HR FAST'};
+    let cls='sched-day-row';
+    if(isToday) cls+=' today';
+    if(isDone) cls+=' completed-row';
+    if(isRest) cls+=' rest-row';
+    if(rowFastType==='extended') cls+=' fast-extended';
+    if(rowFastType==='deep') cls+=' fast-deep';
+
+    let icon = isDone?'✅':isToday?'▶':isRest?'—':d<today?'○':'';
+
+    // Workout type chips
+    let workoutChips = isRest
+      ? `<span class="type-chip chip-rest">REST</span>`
+      : [...new Set(ws.map(w=>w.type))].map(t=>`<span class="type-chip chip-${t}">${T[t].label}</span>`).join('');
+
+    // Fast type chip — always shown, prominent for extended/deep
     const fastChipClass = rowFastType==='extended'?'chip-fast24':rowFastType==='deep'?'chip-fast20':'chip-fast17';
-    const fastChipLabel = rowFastType==='extended'?'24HR FAST':rowFastType==='deep'?'20HR FAST':'17:7';
-    chips += `<span class="type-chip ${fastChipClass}">${fastChipLabel}</span>`;
+    const fastChipLabel = rowFastType==='extended'?'💜 24HR FAST':rowFastType==='deep'?'🟡 20HR FAST':'⏱ 17:7';
+    const fastChip = `<span class="type-chip ${fastChipClass}">${fastChipLabel}</span>`;
+
     html+=`<div class="${cls}" onclick="jumpToDay(${d})">
       <div class="sched-day-num">${d}</div>
       <div class="sched-day-info">
         <div class="sched-day-name">${DAY_DATES[d-1]||''}</div>
-        <div class="sched-day-types">${chips}</div>
+        <div class="sched-day-types">${workoutChips}${fastChip}</div>
       </div>
       <div class="sched-day-status">${icon}</div>
     </div>`;
