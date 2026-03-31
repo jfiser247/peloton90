@@ -569,7 +569,7 @@ const DAY_DATES = [
 const SCHEDULE = {
 // ── PHASE 1 (W1-3) — Build base, 7-9 standard pull-ups ──
 1:  [HIIT_P1[0], w('strength','Full Body Strength','Rebecca Kennedy',20,'Heavy compound moves. Break fast with protein immediately after.'), pullup(1), w('stretch','Full Body Stretch','Ben Alldis',10)],
-2:  [w('strength','Upper Body Strength','Ben Alldis',30,'Use 35-50lb DBs. Focus: chest, shoulders, triceps.'), pullup(1), w('core','Core Strength','Emma Lovewell',10), w('stretch','Upper Body Stretch','Jess Sims',10)],
+2:  [w('strength','Upper Body Strength','Ben Alldis',30,'Use 35-50lb DBs. Focus: chest, shoulders, triceps. No pull-ups today — 48hr rule.'), w('core','Core Strength','Emma Lovewell',10), w('stretch','Upper Body Stretch','Jess Sims',10)],
 3:  [HIIT_P1[1], w('strength','Lower Body Strength','Adrian Williams',20,'Heavy squats, deadlifts, lunges. 40-60lb DBs.'), w('stretch','Lower Body Stretch','Ben Alldis',10)],
 4:  [w('yoga','Power Yoga Flow','Aditi Shah',30,'Active recovery. Mobility work. Fasted yoga fine.'), w('core','Core Strength','Rebecca Kennedy',10), w('stretch','Full Body Stretch','Aditi Shah',5)],
 5:  [HIIT_P1[2], w('strength','Arms & Shoulders — Back Focus','Andy Speer',20,'Pull emphasis: rows, rear delts, shrugs.'), pullup(1), w('stretch','Upper Body Stretch','Jess Sims',10)],
@@ -577,13 +577,13 @@ const SCHEDULE = {
 7:  null,
 8:  [HIIT_P1[3], w('strength','Lower Body Strength','Callie Gullickson',20,'Glutes, quads, hamstrings. Use plyo box for step-ups.'), w('stretch','Lower Body Stretch','Callie Gullickson',10)],
 9:  [w('strength','Full Body Strength','Andy Speer',30,'Compound supersets. Minimal rest = elevated HR.'), pullup(1), w('core','Core Strength','Jess Sims',10), w('stretch','Full Body Stretch','Jess Sims',10)],
-10: [HIIT_P1[4], w('strength','Upper Body Strength','Ben Alldis',20,'Chest press, flyes, shoulder press. 35-50lb DBs.'), pullup(1), w('stretch','Upper Body Stretch','Ben Alldis',10)],
+10: [HIIT_P1[4], w('strength','Upper Body Strength','Ben Alldis',20,'Chest press, flyes, shoulder press. 35-50lb DBs. Pull-ups on Day 13.'), w('stretch','Upper Body Stretch','Ben Alldis',10)],
 11: [w('yoga','Sculpt Flow Yoga','Zacharias Niedzwiecki',30,'Strength yoga. Light DBs. Active recovery day.'), w('core','Core Strength','Emma Lovewell',10), w('stretch','Full Body Stretch','Aditi Shah',5)],
 12: [HIIT_P1[5], w('strength','Lower Body Strength','Adrian Williams',20,'Romanian deadlifts, leg press. 50-60lb DBs.'), w('stretch','Lower Body Stretch','Adrian Williams',10)],
 13: [w('bootcamp','Bike Bootcamp','Jess Sims',45,'Fasted. Max effort on every bike interval + floor strength.'), pullup(1), w('yoga','Power Yoga','Anna Greenberg',20), w('stretch','Full Body Stretch','Anna Greenberg',10)],
 14: null,
 15: [HIIT_P1[0], w('strength','Full Body Strength','Rebecca Kennedy',20,'Go heavier than Week 1. Progressive overload.'), pullup(1), w('stretch','Full Body Stretch','Ben Alldis',10)],
-16: [w('strength','Upper Body Strength','Andy Speer',30,'Increase weight 5-10% from Week 2.'), pullup(1), w('core','Core Strength','Rebecca Kennedy',10), w('stretch','Upper Body Stretch','Jess Sims',10)],
+16: [w('strength','Upper Body Strength','Andy Speer',30,'Increase weight 5-10% from Week 2. Pull-ups on Day 19.'), w('core','Core Strength','Rebecca Kennedy',10), w('stretch','Upper Body Stretch','Jess Sims',10)],
 17: [HIIT_P1[1], w('strength','Lower Body Strength','Callie Gullickson',20,'Heavier this week. Aim 55-60lb on squats.'), w('stretch','Lower Body Stretch','Callie Gullickson',10)],
 18: [w('yoga','Power Flow Yoga','Aditi Shah',30,'Mobility + stretch. Active recovery.'), w('core','Core Strength','Emma Lovewell',10), w('stretch','Full Body Stretch','Aditi Shah',5)],
 19: [HIIT_P1[2], w('strength','Arms & Back','Ben Alldis',20,'Rows, curls, rear delts. Pull-up superset.'), pullup(1), w('stretch','Upper Body Stretch','Ben Alldis',10)],
@@ -601,7 +601,7 @@ const SCHEDULE = {
 
 // ── PHASE 2 (W5-7) — Increase volume, weighted pull-ups ──
 29: [HIIT_P2[0], w('strength','Full Body Strength','Rebecca Kennedy',30,'Heavier than Phase 1. Supersets. 45-60lb compound.'), pullup(2), w('stretch','Full Body Stretch','Ben Alldis',10)],
-30: [w('strength','Upper Body Strength','Ben Alldis',30,'Increase all weights 10-15% from Phase 1.'), pullup(2), w('core','Core Strength','Emma Lovewell',15), w('stretch','Upper Body Stretch','Ben Alldis',10)],
+30: [w('strength','Upper Body Strength','Ben Alldis',30,'Increase all weights 10-15% from Phase 1. Pull-ups on Day 33.'), w('core','Core Strength','Emma Lovewell',15), w('stretch','Upper Body Stretch','Ben Alldis',10)],
 31: [HIIT_P2[1], w('strength','Lower Body Strength','Adrian Williams',30,'Heavy Romanian DL 55-60lb. Bulgarian split squats.'), w('stretch','Lower Body Stretch','Adrian Williams',10)],
 32: [w('yoga','Power Flow Yoga','Zacharias Niedzwiecki',30,'Strength yoga with light weights. Hip mobility.'), w('core','Core Strength','Jess Sims',15), w('stretch','Full Body Stretch','Aditi Shah',10)],
 33: [HIIT_P2[2], w('strength','Upper Body Strength — Push','Andy Speer',30,'Chest + shoulders + triceps. 40-55lb DBs.'), pullup(2), w('stretch','Upper Body Stretch','Andy Speer',10)],
@@ -609,7 +609,7 @@ const SCHEDULE = {
 35: null,
 36: [HIIT_P2[3], w('strength','Lower Body Power','Adrian Williams',30,'Deadlifts 60lb, box jumps (plyo box), heavy lunges.'), w('stretch','Lower Body Stretch','Adrian Williams',10)],
 37: [w('strength','Full Body Strength','Andy Speer',30,'Circuit format. Keep rest under 60s for fat burn.'), pullup(2), w('core','Core Strength','Rebecca Kennedy',15), w('stretch','Full Body Stretch','Andy Speer',10)],
-38: [HIIT_P2[4], w('strength','Arms & Back Pull Day','Ben Alldis',30,'All pulling movements. Rows, curls, face pulls.'), pullup(2), w('stretch','Upper Body Stretch','Ben Alldis',10)],
+38: [HIIT_P2[4], w('strength','Arms & Back Pull Day','Ben Alldis',30,'All pulling movements. Rows, curls, face pulls. Pull-ups Day 40.'), w('stretch','Upper Body Stretch','Ben Alldis',10)],
 39: [w('yoga','Sculpt Flow','Greta Dopp',30,'Light weights in yoga class. Active mobility.'), w('core','Core Strength','Jess Sims',15), w('stretch','Full Body Stretch','Aditi Shah',10)],
 40: [HIIT_P2[5], w('strength','Upper Body Strength','Rebecca Kennedy',30,'Push/pull superset. Max weight for 8-10 reps.'), pullup(2), w('stretch','Upper Body Stretch','Jess Sims',10)],
 41: [w('bootcamp','Bike Bootcamp','Robin Arzón',60,'Fasted 60-min. Go harder than Day 34.'), w('yoga','Power Yoga','Aditi Shah',20), w('stretch','Full Body Stretch','Aditi Shah',10)],
@@ -633,7 +633,7 @@ const SCHEDULE = {
 
 // ── PHASE 3 (W9-13) — Peak intensity, AMRAP pull-ups ──
 57: [HIIT_P3[0], w('strength','Full Body Strength','Andy Speer',30,'Phase 3 opener. Heaviest weights of program.'), pullup(3), w('stretch','Full Body Stretch','Andy Speer',10)],
-58: [w('strength','Upper Body Strength','Rebecca Kennedy',30,'Max load push day. 50-60lb press movements.'), pullup(3), w('core','Core Strength','Emma Lovewell',15), w('stretch','Upper Body Stretch','Jess Sims',10)],
+58: [w('strength','Upper Body Strength','Rebecca Kennedy',30,'Max load push day. 50-60lb press movements. Pull-ups Day 61.'), w('core','Core Strength','Emma Lovewell',15), w('stretch','Upper Body Stretch','Jess Sims',10)],
 59: [HIIT_P3[1], w('strength','Lower Body Power','Adrian Williams',30,'Heaviest deadlifts of program. 60lb+ RDLs.'), w('stretch','Lower Body Stretch','Adrian Williams',10)],
 60: [w('yoga','Sculpt Flow','Zacharias Niedzwiecki',30,'Strength yoga. Active recovery with light load.'), w('core','Core Strength','Jess Sims',15), w('stretch','Full Body Stretch','Aditi Shah',10)],
 61: [HIIT_P3[2], w('strength','Upper Body Strength — Pull','Ben Alldis',30,'All rows, pull movements, rear delts, curls.'), pullup(3), w('stretch','Upper Body Stretch','Ben Alldis',10)],
@@ -647,7 +647,7 @@ const SCHEDULE = {
 69: [w('bootcamp','Bike Bootcamp','Jess Sims',60,'Fasted 60-min. Hardest bootcamp yet.'), w('yoga','Power Yoga','Zacharias Niedzwiecki',20), w('stretch','Full Body Stretch','Aditi Shah',10)],
 70: null,
 71: [HIIT_P3[0], w('strength','Full Body Strength','Andy Speer',30,'Week 11. You know what to do. Go heavier.'), pullup(3), w('stretch','Full Body Stretch','Andy Speer',10)],
-72: [w('strength','Upper Body Strength','Ben Alldis',30,'Final heavy push week. Max reps at working weight.'), pullup(3), w('core','Core Strength','Jess Sims',15), w('stretch','Upper Body Stretch','Ben Alldis',10)],
+72: [w('strength','Upper Body Strength','Ben Alldis',30,'Final heavy push week. Max reps at working weight. Pull-ups Day 75.'), w('core','Core Strength','Jess Sims',15), w('stretch','Upper Body Stretch','Ben Alldis',10)],
 73: [HIIT_P3[1], w('strength','Lower Body Strength','Callie Gullickson',30,'Last heavy leg week. Leave everything in the tank.'), w('stretch','Lower Body Stretch','Callie Gullickson',10)],
 74: [w('yoga','Sculpt Flow','Greta Dopp',30,'Active recovery. Keep the body primed.'), w('core','Core Strength','Emma Lovewell',15), w('stretch','Full Body Stretch','Aditi Shah',10)],
 75: [HIIT_P3[2], w('strength','Upper Body Strength — Pull','Rebecca Kennedy',30,'Max pull day. Row everything heavy.'), pullup(3), w('stretch','Upper Body Stretch','Jess Sims',10)],
@@ -663,7 +663,7 @@ const SCHEDULE = {
 84: null,
 // Victory W13
 85: [HIIT_P3[0], w('strength','Full Body Strength','Andy Speer',30,'Victory Week. Max load. Show what 84 days built.'), pullup(3), w('stretch','Full Body Stretch','Andy Speer',10)],
-86: [w('strength','Upper Body Strength','Rebecca Kennedy',30,'Heaviest upper body session of the program.'), pullup(3), w('core','Core Strength','Jess Sims',15), w('stretch','Upper Body Stretch','Jess Sims',10)],
+86: [w('strength','Upper Body Strength','Rebecca Kennedy',30,'Heaviest upper body session of the program. Pull-ups Day 89.'), w('core','Core Strength','Jess Sims',15), w('stretch','Upper Body Stretch','Jess Sims',10)],
 87: [HIIT_P3[2], w('strength','Lower Body Power','Adrian Williams',30,'Heaviest lower body of the program.'), w('stretch','Lower Body Stretch','Adrian Williams',10)],
 88: [w('yoga','Power Flow Yoga','Aditi Shah',30,'Final yoga session. Reflect on 88 days.'), w('core','Core Strength','Emma Lovewell',15), w('stretch','Full Body Stretch','Aditi Shah',10)],
 89: [HIIT_P3[4], w('bootcamp','Bike Bootcamp','Jess Sims',60,'Final bootcamp. Everything you have.'), pullup(3), w('stretch','Full Body Stretch','Jess Sims',10)],
