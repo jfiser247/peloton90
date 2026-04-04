@@ -1,0 +1,17 @@
+# Swift project (managed locally)
+Peloton90/
+
+# IDE / editor
+.idea/
+*.iml
+
+# Claude Code
+.claude/
+CLAUDE.md
+
+# Dev tools
+generate-icons.html
+
+# PWA support files (managed alongside index.html as needed)
+manifest.json
+sw.js
