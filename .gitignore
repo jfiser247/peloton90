@@ -12,6 +12,6 @@ CLAUDE.md
 # Dev tools
 generate-icons.html
 
-# PWA support files (managed alongside index.html as needed)
-manifest.json
-sw.js
+# PWA support files are tracked — they must be deployed with index.html
+# manifest.json
+# sw.js

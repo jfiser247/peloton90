@@ -9,7 +9,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="theme-color" content="#080810">
 <meta name="description" content="90-Day Peloton Fat Loss Program Tracker">
-<link rel="manifest" id="manifestLink">
+<link rel="manifest" href="./manifest.json">
 <link rel="apple-touch-icon" id="appleTouchIcon">
 <link rel="apple-touch-startup-image" id="splashIcon">
 <title>Peloton 90 · Fat Loss Protocol</title>
@@ -32,6 +32,15 @@
   --blue: #3a8ef0;
   --safe-top: env(safe-area-inset-top, 44px);
   --safe-bot: env(safe-area-inset-bottom, 34px);
+/* Font-size scale — generated from Typography.swift */
+  --fs-display: 72px;
+  --fs-title: 26px;
+  --fs-headline: 20px;
+  --fs-callout: 17px;
+  --fs-body: 16px;
+  --fs-subhead: 15px;
+  --fs-caption: 14px;
+  --fs-micro: 13px;
 }
 * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
 html { font-size: 16px; }
@@ -123,8 +132,8 @@ html,body { height:100%; overflow:hidden; background:var(--bg); color:var(--whit
 }
 .fast-icon { font-size:24px; flex-shrink:0; }
 .fast-info { flex:1; }
-.fast-title { font-family:'Barlow Condensed',sans-serif; font-size:16px; font-weight:700; letter-spacing:.04em; text-transform:uppercase; color:var(--teal); margin-bottom:2px; }
-.fast-detail { font-size:15px; color:rgba(240,238,232,.6); line-height:1.4; }
+.fast-title { font-family:'Barlow Condensed',sans-serif; font-size:var(--fs-callout); font-weight:700; letter-spacing:.04em; text-transform:uppercase; color:var(--teal); margin-bottom:2px; }
+.fast-detail { font-size:var(--fs-body); color:rgba(240,238,232,.6); line-height:1.4; }
 .fast-timer-wrap { text-align:right; flex-shrink:0; }
 .fast-status { font-family:'Barlow Condensed',sans-serif; font-size:14px; font-weight:700; letter-spacing:.04em; text-transform:uppercase; }
 .fast-status.fasting { color:var(--teal); }
@@ -176,7 +185,7 @@ html,body { height:100%; overflow:hidden; background:var(--bg); color:var(--whit
 .workout-card.done .workout-check { background:var(--green); border-color:var(--green); color:#fff; }
 .workout-info { flex:1; min-width:0; }
 .workout-type { font-family:'Barlow Condensed',sans-serif; font-size:14px; font-weight:700; letter-spacing:.04em; text-transform:uppercase; margin-bottom:3px; }
-.workout-name { font-family:'Barlow Semi Condensed',sans-serif; font-size:18px; font-weight:600; line-height:1.3; margin-bottom:4px; }
+.workout-name { font-family:'Barlow Semi Condensed',sans-serif; font-size:var(--fs-headline); font-weight:600; line-height:1.3; margin-bottom:4px; }
 .workout-meta { display:flex; gap:8px; align-items:center; flex-wrap:wrap; }
 .workout-dur { font-size:14px; color:var(--muted); background:var(--surface); padding:3px 9px; border-radius:8px; font-family:'Barlow Condensed',sans-serif; font-weight:600; }
 .workout-instructor { font-size:15px; color:var(--muted); }
@@ -456,24 +465,24 @@ const T = {
 
 // Peloton instructor slug map
 const INSTRUCTOR_SLUGS = {
-  'Matt Wilpers':        'e0b9d1fb-e2be-4e41-9c84-9de49285eb55',
-  'Olivia Amato':        '584db5b4-94f2-4eef-9e8d-a82571cebd6e',
-  'Alex Toussaint':      '01b8b926-0f79-4a55-892d-5ae7f17e09ec',
-  'Tunde Oyeneyin':      'c406f36b-6063-4b61-a2fd-b9f4a5cd5bb8',
-  "Christine D'Ercole": 'bd4b57c7-a85f-4f97-bff1-a20dd5e8f3d8',
-  'Robin Arzón':         'e0b8c7c2-4ae2-4e2d-8285-1ff990a9cb0b',
-  'Jess Sims':           '0e836c79-48e1-4b3a-a197-d6e0e0d11c5c',
-  'Rebecca Kennedy':     '1b79e462-6dfa-4ab1-a9f2-5bd2e1a4e9b3',
-  'Andy Speer':          '2e9a31ea-30e0-4880-8912-db8b0c478201',
-  'Ben Alldis':          '1cf80226-32a1-4d46-9b75-3bfb3de51770',
-  'Adrian Williams':     '4611147e-4c2e-4807-aa53-6e1e1e2ef3ac',
-  'Callie Gullickson':   'ce26aab3-8e36-4b29-baf9-fb8f3e5f1f87',
-  'Emma Lovewell':       '3ba2b53e-a32e-4ab2-aed3-c16e5d83a00b',
-  'Leanne Hainsby':      '4904612e-0a87-4b77-a259-eff1d82e3da7',
-  'Aditi Shah':          '3d203b68-b9c8-4a41-9e58-8fcce6b06f7b',
-  'Anna Greenberg':      '3d203b68-b9c8-4a41-9e58-8fcce6b06f7b',
-  'Zacharias Niedzwiecki':'a29c78c5-4fa6-471d-9e96-5d7a15c52a52',
-  'Greta Dopp':          'fa6f55b5-e16c-4f4e-9c45-62f891e2c1b9',
+  "Aditi Shah": "3d203b68-b9c8-4a41-9e58-8fcce6b06f7b",
+  "Adrian Williams": "4611147e-4c2e-4807-aa53-6e1e1e2ef3ac",
+  "Alex Toussaint": "01b8b926-0f79-4a55-892d-5ae7f17e09ec",
+  "Andy Speer": "2e9a31ea-30e0-4880-8912-db8b0c478201",
+  "Anna Greenberg": "3d203b68-b9c8-4a41-9e58-8fcce6b06f7b",
+  "Ben Alldis": "1cf80226-32a1-4d46-9b75-3bfb3de51770",
+  "Callie Gullickson": "ce26aab3-8e36-4b29-baf9-fb8f3e5f1f87",
+  "Christine D'Ercole": "bd4b57c7-a85f-4f97-bff1-a20dd5e8f3d8",
+  "Emma Lovewell": "3ba2b53e-a32e-4ab2-aed3-c16e5d83a00b",
+  "Greta Dopp": "fa6f55b5-e16c-4f4e-9c45-62f891e2c1b9",
+  "Jess Sims": "0e836c79-48e1-4b3a-a197-d6e0e0d11c5c",
+  "Leanne Hainsby": "4904612e-0a87-4b77-a259-eff1d82e3da7",
+  "Matt Wilpers": "e0b9d1fb-e2be-4e41-9c84-9de49285eb55",
+  "Olivia Amato": "584db5b4-94f2-4eef-9e8d-a82571cebd6e",
+  "Rebecca Kennedy": "1b79e462-6dfa-4ab1-a9f2-5bd2e1a4e9b3",
+  "Robin Arzón": "e0b8c7c2-4ae2-4e2d-8285-1ff990a9cb0b",
+  "Tunde Oyeneyin": "c406f36b-6063-4b61-a2fd-b9f4a5cd5bb8",
+  "Zacharias Niedzwiecki": "a29c78c5-4fa6-471d-9e96-5d7a15c52a52",
 };
 
 // Class type → Peloton discipline slug
@@ -524,151 +533,102 @@ function pelotonUrl(wk) {
   if(instructorSlug) url += `&instructor_id=${instructorSlug}`;
   return url;
 }
-const HIIT_P1 = [
-  w('hiit','Tabata Ride','Olivia Amato',20,'Fasted HIIT. Max effort every interval. Target HR 85-95%.'),
-  w('hiit','HIIT & Hills Ride','Matt Wilpers',30,'Fasted. Push every surge. Seated climbs at heavy resistance.'),
-  w('hiit','Power Zone Max Ride','Matt Wilpers',30,'Fasted. Stay in Zone 4-5 throughout. No coasting.'),
-  w('hiit','Intervals Ride','Alex Toussaint',20,'Fasted HIIT. Sprint intervals. Max RPM on every push.'),
-  w('hiit','Tabata Ride','Tunde Oyeneyin',20,'Fasted. 20s all-out / 10s recover × 8 rounds per block.'),
-  w('hiit','HIIT Ride','Olivia Amato',30,'Fasted. Push-recovery pattern. Burn fat for 24hrs after.'),
-];
-const HIIT_P2 = [
-  w('hiit','Power Zone Max Ride','Matt Wilpers',45,'Fasted. Sustained Z4-5. This is your main fat burn session.'),
-  w('hiit','Tabata Ride','Alex Toussaint',30,'Fasted HIIT. Explosive 20s efforts. Lactic threshold work.'),
-  w('hiit','HIIT & Hills Ride','Matt Wilpers',45,'Fasted. Max intensity on every climb. No recovery coasting.'),
-  w('hiit','Intervals Ride','Olivia Amato',30,'Fasted. 30s on / 30s off format. Keep HR elevated.'),
-  w('hiit','Power Zone Max Ride','Matt Wilpers',45,'Fasted. Hit your peak output. Stronger than last week.'),
-  w('hiit','Climb Ride','Christine D\'Ercole',45,'Fasted. Heavy resistance sustained climbs. Max calorie burn.'),
-];
-const HIIT_P3 = [
-  w('hiit','Power Zone Max Ride','Matt Wilpers',45,'Fasted. Go all-out. Week 9+ = peak phase. Leave nothing.'),
-  w('hiit','Tabata Ride','Olivia Amato',30,'Fasted HIIT. Hardest 20s efforts of the program.'),
-  w('hiit','HIIT & Hills Ride','Matt Wilpers',45,'Fasted. Final push phase. Max fat oxidation before 10am break-fast.'),
-  w('hiit','Intervals Ride','Alex Toussaint',45,'Fasted. Sprint-recovery. Every rep at max capability.'),
-  w('hiit','Power Zone Max Ride','Matt Wilpers',45,'Fasted peak ride. Beat your previous output.'),
-  w('hiit','Climb Ride','Christine D\'Ercole',45,'Fasted. Heavy sustained effort. Finishing strong.'),
-];
-
 const DAY_DATES = [
-  'Mon Mar 30','Tue Mar 31','Wed Apr 1','Thu Apr 2','Fri Apr 3','Sat Apr 4','Sun Apr 5',
-  'Mon Apr 6','Tue Apr 7','Wed Apr 8','Thu Apr 9','Fri Apr 10','Sat Apr 11','Sun Apr 12',
-  'Mon Apr 13','Tue Apr 14','Wed Apr 15','Thu Apr 16','Fri Apr 17','Sat Apr 18','Sun Apr 19',
-  'Mon Apr 20','Tue Apr 21','Wed Apr 22','Thu Apr 23','Fri Apr 24','Sat Apr 25','Sun Apr 26',
-  'Mon Apr 27','Tue Apr 28','Wed Apr 29','Thu Apr 30','Fri May 1','Sat May 2','Sun May 3',
-  'Mon May 4','Tue May 5','Wed May 6','Thu May 7','Fri May 8','Sat May 9','Sun May 10',
-  'Mon May 11','Tue May 12','Wed May 13','Thu May 14','Fri May 15','Sat May 16','Sun May 17',
-  'Mon May 18','Tue May 19','Wed May 20','Thu May 21','Fri May 22','Sat May 23','Sun May 24',
-  'Mon May 25','Tue May 26','Wed May 27','Thu May 28','Fri May 29','Sat May 30','Sun May 31',
-  'Mon Jun 1','Tue Jun 2','Wed Jun 3','Thu Jun 4','Fri Jun 5','Sat Jun 6','Sun Jun 7',
-  'Mon Jun 8','Tue Jun 9','Wed Jun 10','Thu Jun 11','Fri Jun 12','Sat Jun 13','Sun Jun 14',
-  'Mon Jun 15','Tue Jun 16','Wed Jun 17','Thu Jun 18','Fri Jun 19','Sat Jun 20','Sun Jun 21',
-  'Mon Jun 22','Tue Jun 23','Wed Jun 24','Thu Jun 25','Fri Jun 26','Sat Jun 27','Sun Jun 28'
+  "Mon Mar 30","Tue Mar 31","Wed Apr 1","Thu Apr 2","Fri Apr 3","Sat Apr 4","Sun Apr 5",
+  "Mon Apr 6","Tue Apr 7","Wed Apr 8","Thu Apr 9","Fri Apr 10","Sat Apr 11","Sun Apr 12",
+  "Mon Apr 13","Tue Apr 14","Wed Apr 15","Thu Apr 16","Fri Apr 17","Sat Apr 18","Sun Apr 19",
+  "Mon Apr 20","Tue Apr 21","Wed Apr 22","Thu Apr 23","Fri Apr 24","Sat Apr 25","Sun Apr 26",
+  "Mon Apr 27","Tue Apr 28","Wed Apr 29","Thu Apr 30","Fri May 1","Sat May 2","Sun May 3",
+  "Mon May 4","Tue May 5","Wed May 6","Thu May 7","Fri May 8","Sat May 9","Sun May 10",
+  "Mon May 11","Tue May 12","Wed May 13","Thu May 14","Fri May 15","Sat May 16","Sun May 17",
+  "Mon May 18","Tue May 19","Wed May 20","Thu May 21","Fri May 22","Sat May 23","Sun May 24",
+  "Mon May 25","Tue May 26","Wed May 27","Thu May 28","Fri May 29","Sat May 30","Sun May 31",
+  "Mon Jun 1","Tue Jun 2","Wed Jun 3","Thu Jun 4","Fri Jun 5","Sat Jun 6","Sun Jun 7",
+  "Mon Jun 8","Tue Jun 9","Wed Jun 10","Thu Jun 11","Fri Jun 12","Sat Jun 13","Sun Jun 14",
+  "Mon Jun 15","Tue Jun 16","Wed Jun 17","Thu Jun 18","Fri Jun 19","Sat Jun 20","Sun Jun 21",
+  "Mon Jun 22","Tue Jun 23","Wed Jun 24","Thu Jun 25","Fri Jun 26","Sat Jun 27","Sun Jun 28"
 ];
 
 // Full schedule — HIIT-first fasted, then strength, then stretch
-// Structure: fasted HIIT ride → strength split → pull-ups on back days → core → stretch
 const SCHEDULE = {
-// ── PHASE 1 (W1-3) — Build base, 7-9 standard pull-ups ──
-1:  [HIIT_P1[0], w('strength','Full Body Strength','Rebecca Kennedy',20,'Heavy compound moves. Break fast with protein immediately after.'), pullup(1), w('stretch','Full Body Stretch','Ben Alldis',10)],
-2:  [w('strength','Upper Body Strength','Ben Alldis',30,'Use 35-50lb DBs. Focus: chest, shoulders, triceps. No pull-ups today — 48hr rule.'), w('core','Core Strength','Emma Lovewell',10), w('stretch','Upper Body Stretch','Jess Sims',10)],
-3:  [HIIT_P1[1], w('strength','Lower Body Strength','Adrian Williams',20,'Heavy squats, deadlifts, lunges. 40-60lb DBs.'), w('stretch','Lower Body Stretch','Ben Alldis',10)],
-4:  [w('yoga','Power Yoga Flow','Aditi Shah',30,'Active recovery. Mobility work. Fasted yoga fine.'), w('core','Core Strength','Rebecca Kennedy',10), w('stretch','Full Body Stretch','Aditi Shah',5)],
-5:  [HIIT_P1[2], w('strength','Arms & Shoulders — Back Focus','Andy Speer',20,'Pull emphasis: rows, rear delts, shrugs.'), pullup(1), w('stretch','Upper Body Stretch','Jess Sims',10)],
-6:  [w('bootcamp','Bike Bootcamp','Robin Arzón',45,'Fasted bootcamp. On-bike HIIT + off-bike strength combos.'), w('yoga','Yoga Flow','Anna Greenberg',20), w('stretch','Full Body Stretch','Anna Greenberg',10)],
-7:  null,
-8:  [HIIT_P1[3], w('strength','Lower Body Strength','Callie Gullickson',20,'Glutes, quads, hamstrings. Use plyo box for step-ups.'), w('stretch','Lower Body Stretch','Callie Gullickson',10)],
-9:  [w('strength','Full Body Strength','Andy Speer',30,'Compound supersets. Minimal rest = elevated HR.'), pullup(1), w('core','Core Strength','Jess Sims',10), w('stretch','Full Body Stretch','Jess Sims',10)],
-10: [HIIT_P1[4], w('strength','Upper Body Strength','Ben Alldis',20,'Chest press, flyes, shoulder press. 35-50lb DBs. Pull-ups on Day 13.'), w('stretch','Upper Body Stretch','Ben Alldis',10)],
-11: [w('yoga','Sculpt Flow Yoga','Zacharias Niedzwiecki',30,'Strength yoga. Light DBs. Active recovery day.'), w('core','Core Strength','Emma Lovewell',10), w('stretch','Full Body Stretch','Aditi Shah',5)],
-12: [HIIT_P1[5], w('strength','Lower Body Strength','Adrian Williams',20,'Romanian deadlifts, leg press. 50-60lb DBs.'), w('stretch','Lower Body Stretch','Adrian Williams',10)],
-13: [w('bootcamp','Bike Bootcamp','Jess Sims',45,'Fasted. Max effort on every bike interval + floor strength.'), pullup(1), w('yoga','Power Yoga','Anna Greenberg',20), w('stretch','Full Body Stretch','Anna Greenberg',10)],
-14: null,
-15: [HIIT_P1[0], w('strength','Full Body Strength','Rebecca Kennedy',20,'Go heavier than Week 1. Progressive overload.'), pullup(1), w('stretch','Full Body Stretch','Ben Alldis',10)],
-16: [w('strength','Upper Body Strength','Andy Speer',30,'Increase weight 5-10% from Week 2. Pull-ups on Day 19.'), w('core','Core Strength','Rebecca Kennedy',10), w('stretch','Upper Body Stretch','Jess Sims',10)],
-17: [HIIT_P1[1], w('strength','Lower Body Strength','Callie Gullickson',20,'Heavier this week. Aim 55-60lb on squats.'), w('stretch','Lower Body Stretch','Callie Gullickson',10)],
-18: [w('yoga','Power Flow Yoga','Aditi Shah',30,'Mobility + stretch. Active recovery.'), w('core','Core Strength','Emma Lovewell',10), w('stretch','Full Body Stretch','Aditi Shah',5)],
-19: [HIIT_P1[2], w('strength','Arms & Back','Ben Alldis',20,'Rows, curls, rear delts. Pull-up superset.'), pullup(1), w('stretch','Upper Body Stretch','Ben Alldis',10)],
-20: [w('bootcamp','Bike Bootcamp','Robin Arzón',45,'Fasted. Push harder than Week 1 bootcamp.'), w('yoga','Power Yoga Flow','Aditi Shah',20), w('stretch','Full Body Stretch','Aditi Shah',10)],
-21: null,
-
-// ── TRANSITION W4 — Active recovery, light movement ──
-22: [w('yoga','Yin Yoga','Aditi Shah',30,'Deep stretch. Full fast continues through class.'), w('stretch','Full Body Stretch','Aditi Shah',15)],
-23: [w('ride','Low Impact Ride','Emma Lovewell',20,'Easy cardio. Keep HR in Zone 2. Active recovery.'), w('stretch','Lower Body Stretch','Aditi Shah',15)],
-24: [w('yoga','Slow Flow Yoga','Anna Greenberg',30,'Mobility focus. Hip flexors and thoracic spine.'), w('stretch','Hip Mobility Stretch','Anna Greenberg',10)],
-25: [w('strength','Bodyweight Strength','Andy Speer',20,'Light bodyweight only. No added load this week.'), w('core','Core Strength','Emma Lovewell',10), w('stretch','Full Body Stretch','Andy Speer',10)],
-26: [w('ride','Recovery Ride','Leanne Hainsby',20,'Zone 2 only. Heart rate under 130. Pure flush.'), w('stretch','Full Body Stretch','Leanne Hainsby',15)],
-27: [w('yoga','Slow Flow Yoga','Aditi Shah',30,'Final recovery session before Phase 2.'), w('stretch','Full Body Stretch','Aditi Shah',10)],
-28: null,
-
-// ── PHASE 2 (W5-7) — Increase volume, weighted pull-ups ──
-29: [HIIT_P2[0], w('strength','Full Body Strength','Rebecca Kennedy',30,'Heavier than Phase 1. Supersets. 45-60lb compound.'), pullup(2), w('stretch','Full Body Stretch','Ben Alldis',10)],
-30: [w('strength','Upper Body Strength','Ben Alldis',30,'Increase all weights 10-15% from Phase 1. Pull-ups on Day 33.'), w('core','Core Strength','Emma Lovewell',15), w('stretch','Upper Body Stretch','Ben Alldis',10)],
-31: [HIIT_P2[1], w('strength','Lower Body Strength','Adrian Williams',30,'Heavy Romanian DL 55-60lb. Bulgarian split squats.'), w('stretch','Lower Body Stretch','Adrian Williams',10)],
-32: [w('yoga','Power Flow Yoga','Zacharias Niedzwiecki',30,'Strength yoga with light weights. Hip mobility.'), w('core','Core Strength','Jess Sims',15), w('stretch','Full Body Stretch','Aditi Shah',10)],
-33: [HIIT_P2[2], w('strength','Upper Body Strength — Push','Andy Speer',30,'Chest + shoulders + triceps. 40-55lb DBs.'), pullup(2), w('stretch','Upper Body Stretch','Andy Speer',10)],
-34: [w('bootcamp','Bike Bootcamp','Jess Sims',60,'Fasted 60-min bootcamp. Peak calorie burn for the week.'), w('yoga','Yoga + Pilates','Anna Greenberg',20), w('stretch','Full Body Stretch','Anna Greenberg',10)],
-35: null,
-36: [HIIT_P2[3], w('strength','Lower Body Power','Adrian Williams',30,'Deadlifts 60lb, box jumps (plyo box), heavy lunges.'), w('stretch','Lower Body Stretch','Adrian Williams',10)],
-37: [w('strength','Full Body Strength','Andy Speer',30,'Circuit format. Keep rest under 60s for fat burn.'), pullup(2), w('core','Core Strength','Rebecca Kennedy',15), w('stretch','Full Body Stretch','Andy Speer',10)],
-38: [HIIT_P2[4], w('strength','Arms & Back Pull Day','Ben Alldis',30,'All pulling movements. Rows, curls, face pulls. Pull-ups Day 40.'), w('stretch','Upper Body Stretch','Ben Alldis',10)],
-39: [w('yoga','Sculpt Flow','Greta Dopp',30,'Light weights in yoga class. Active mobility.'), w('core','Core Strength','Jess Sims',15), w('stretch','Full Body Stretch','Aditi Shah',10)],
-40: [HIIT_P2[5], w('strength','Upper Body Strength','Rebecca Kennedy',30,'Push/pull superset. Max weight for 8-10 reps.'), pullup(2), w('stretch','Upper Body Stretch','Jess Sims',10)],
-41: [w('bootcamp','Bike Bootcamp','Robin Arzón',60,'Fasted 60-min. Go harder than Day 34.'), w('yoga','Power Yoga','Aditi Shah',20), w('stretch','Full Body Stretch','Aditi Shah',10)],
-42: null,
-43: [HIIT_P2[0], w('strength','Full Body Strength','Rebecca Kennedy',30,'Final week P2. Max load on every set.'), pullup(2), w('stretch','Full Body Stretch','Ben Alldis',10)],
-44: [w('strength','Lower Body Strength','Adrian Williams',30,'Heaviest lower body week yet. Drive progressive overload.'), w('core','Core Strength','Emma Lovewell',15), w('stretch','Lower Body Stretch','Adrian Williams',10)],
-45: [HIIT_P2[1], w('strength','Upper Body Strength — Push','Andy Speer',30,'Bench press equivalent, shoulder press, dips.'), pullup(2), w('stretch','Upper Body Stretch','Andy Speer',10)],
-46: [w('yoga','Power Flow Yoga','Aditi Shah',30,'Pre-phase 3 mobility. Focus hamstrings and hips.'), w('core','Core Strength','Rebecca Kennedy',15), w('stretch','Full Body Stretch','Aditi Shah',10)],
-47: [HIIT_P2[2], w('strength','Arms & Back','Ben Alldis',30,'Heaviest pull session of Phase 2.'), pullup(2), w('stretch','Upper Body Stretch','Ben Alldis',10)],
-48: [w('bootcamp','Bike Bootcamp','Jess Sims',60,'Phase 2 final bootcamp. Beat every previous score.'), w('yoga','Yoga + Pilates','Anna Greenberg',20), w('stretch','Full Body Stretch','Anna Greenberg',10)],
-49: null,
-
-// ── TRANSITION W8 — Active recovery before peak ──
-50: [w('yoga','Slow Flow Yoga','Aditi Shah',30,'Deep recovery. Nervous system reset.'), w('stretch','Full Body Stretch','Aditi Shah',15)],
-51: [w('ride','Low Impact Ride','Emma Lovewell',20,'Zone 2 flush. Keep it easy.'), w('stretch','Lower Body Stretch','Aditi Shah',15)],
-52: [w('yoga','Yin Yoga','Anna Greenberg',30,'Joint and connective tissue work.'), w('stretch','Hip Mobility Stretch','Anna Greenberg',10)],
-53: [w('strength','Bodyweight Strength','Andy Speer',20,'Movement patterns only. Light and smooth.'), w('core','Core Strength','Emma Lovewell',10), w('stretch','Full Body Stretch','Andy Speer',10)],
-54: [w('ride','Recovery Ride','Leanne Hainsby',20,'Flush the legs. Zone 1-2 only.'), w('stretch','Full Body Stretch','Leanne Hainsby',15)],
-55: [w('yoga','Power Yoga Flow','Aditi Shah',30,'Prime for Phase 3. Activate without taxing.'), w('stretch','Full Body Stretch','Aditi Shah',10)],
-56: null,
-
-// ── PHASE 3 (W9-13) — Peak intensity, AMRAP pull-ups ──
-57: [HIIT_P3[0], w('strength','Full Body Strength','Andy Speer',30,'Phase 3 opener. Heaviest weights of program.'), pullup(3), w('stretch','Full Body Stretch','Andy Speer',10)],
-58: [w('strength','Upper Body Strength','Rebecca Kennedy',30,'Max load push day. 50-60lb press movements. Pull-ups Day 61.'), w('core','Core Strength','Emma Lovewell',15), w('stretch','Upper Body Stretch','Jess Sims',10)],
-59: [HIIT_P3[1], w('strength','Lower Body Power','Adrian Williams',30,'Heaviest deadlifts of program. 60lb+ RDLs.'), w('stretch','Lower Body Stretch','Adrian Williams',10)],
-60: [w('yoga','Sculpt Flow','Zacharias Niedzwiecki',30,'Strength yoga. Active recovery with light load.'), w('core','Core Strength','Jess Sims',15), w('stretch','Full Body Stretch','Aditi Shah',10)],
-61: [HIIT_P3[2], w('strength','Upper Body Strength — Pull','Ben Alldis',30,'All rows, pull movements, rear delts, curls.'), pullup(3), w('stretch','Upper Body Stretch','Ben Alldis',10)],
-62: [w('bootcamp','Bike Bootcamp','Robin Arzón',60,'Phase 3 bootcamp. Max output start to finish.'), w('yoga','Yoga + Pilates','Anna Greenberg',20), w('stretch','Full Body Stretch','Anna Greenberg',10)],
-63: null,
-64: [HIIT_P3[3], w('strength','Full Body Strength','Rebecca Kennedy',30,'Supersets. 45s rest max. Keep HR elevated through strength.'), pullup(3), w('stretch','Full Body Stretch','Ben Alldis',10)],
-65: [w('strength','Lower Body Strength','Callie Gullickson',30,'Squat + deadlift day. Heaviest week yet.'), w('core','Core Strength','Rebecca Kennedy',15), w('stretch','Lower Body Stretch','Callie Gullickson',10)],
-66: [HIIT_P3[4], w('strength','Upper Body Strength — Push','Andy Speer',30,'Max load. Aim to beat W7 numbers.'), pullup(3), w('stretch','Upper Body Stretch','Andy Speer',10)],
-67: [w('yoga','Power Flow Yoga','Aditi Shah',30,'Mid-phase mobility. Keep hips and shoulders open.'), w('core','Core Strength','Emma Lovewell',15), w('stretch','Full Body Stretch','Aditi Shah',10)],
-68: [HIIT_P3[5], w('strength','Lower Body Power','Adrian Williams',30,'Bulgarian split squats, step-ups, weighted lunges.'), w('stretch','Lower Body Stretch','Adrian Williams',10)],
-69: [w('bootcamp','Bike Bootcamp','Jess Sims',60,'Fasted 60-min. Hardest bootcamp yet.'), w('yoga','Power Yoga','Zacharias Niedzwiecki',20), w('stretch','Full Body Stretch','Aditi Shah',10)],
-70: null,
-71: [HIIT_P3[0], w('strength','Full Body Strength','Andy Speer',30,'Week 11. You know what to do. Go heavier.'), pullup(3), w('stretch','Full Body Stretch','Andy Speer',10)],
-72: [w('strength','Upper Body Strength','Ben Alldis',30,'Final heavy push week. Max reps at working weight. Pull-ups Day 75.'), w('core','Core Strength','Jess Sims',15), w('stretch','Upper Body Stretch','Ben Alldis',10)],
-73: [HIIT_P3[1], w('strength','Lower Body Strength','Callie Gullickson',30,'Last heavy leg week. Leave everything in the tank.'), w('stretch','Lower Body Stretch','Callie Gullickson',10)],
-74: [w('yoga','Sculpt Flow','Greta Dopp',30,'Active recovery. Keep the body primed.'), w('core','Core Strength','Emma Lovewell',15), w('stretch','Full Body Stretch','Aditi Shah',10)],
-75: [HIIT_P3[2], w('strength','Upper Body Strength — Pull','Rebecca Kennedy',30,'Max pull day. Row everything heavy.'), pullup(3), w('stretch','Upper Body Stretch','Jess Sims',10)],
-76: [w('bootcamp','Bike Bootcamp','Robin Arzón',60,'Penultimate bootcamp. Peak performance.'), w('yoga','Yoga + Pilates','Anna Greenberg',20), w('stretch','Full Body Stretch','Anna Greenberg',10)],
-77: null,
-// Deload W12
-78: [HIIT_P3[3], w('strength','Full Body Strength','Rebecca Kennedy',20,'Deload week. Drop weight 20%. Focus form.'), pullup(3), w('stretch','Full Body Stretch','Ben Alldis',10)],
-79: [w('strength','Upper Body Strength','Ben Alldis',20,'Lighter weight. Perfect reps.'), w('core','Core Strength','Emma Lovewell',10), w('stretch','Upper Body Stretch','Ben Alldis',10)],
-80: [w('yoga','Yin Yoga','Aditi Shah',30,'Deep deload recovery.'), w('stretch','Full Body Stretch','Aditi Shah',15)],
-81: [w('ride','Low Impact Ride','Emma Lovewell',20,'Zone 2. Body preparing for Victory Week.'), w('strength','Lower Body Strength','Adrian Williams',20,'Light deload.'), w('stretch','Lower Body Stretch','Adrian Williams',10)],
-82: [HIIT_P3[4], w('strength','Upper Body Strength','Andy Speer',20,'Deload. Light and sharp.'), w('stretch','Upper Body Stretch','Andy Speer',10)],
-83: [w('yoga','Slow Flow Yoga','Aditi Shah',30,'Final prep. Mentally prime for Victory Week.'), w('stretch','Full Body Stretch','Aditi Shah',10)],
-84: null,
-// Victory W13
-85: [HIIT_P3[0], w('strength','Full Body Strength','Andy Speer',30,'Victory Week. Max load. Show what 84 days built.'), pullup(3), w('stretch','Full Body Stretch','Andy Speer',10)],
-86: [w('strength','Upper Body Strength','Rebecca Kennedy',30,'Heaviest upper body session of the program. Pull-ups Day 89.'), w('core','Core Strength','Jess Sims',15), w('stretch','Upper Body Stretch','Jess Sims',10)],
-87: [HIIT_P3[2], w('strength','Lower Body Power','Adrian Williams',30,'Heaviest lower body of the program.'), w('stretch','Lower Body Stretch','Adrian Williams',10)],
-88: [w('yoga','Power Flow Yoga','Aditi Shah',30,'Final yoga session. Reflect on 88 days.'), w('core','Core Strength','Emma Lovewell',15), w('stretch','Full Body Stretch','Aditi Shah',10)],
-89: [HIIT_P3[4], w('bootcamp','Bike Bootcamp','Jess Sims',60,'Final bootcamp. Everything you have.'), pullup(3), w('stretch','Full Body Stretch','Jess Sims',10)],
-90: [w('hiit','Victory Ride — Max Output','Your Choice',30,'90 days. Fasted. Everything you have. 🔥'), w('yoga','Power Flow Yoga','Aditi Shah',30,'Final flow. Celebrate the work.'), w('stretch','Full Body Stretch — You Did It 🎉','All',20,'Final stretch. You are done.')],
+1: [{type:"hiit",name:"Tabata Ride",instructor:"Olivia Amato",mins:20,note:"Fasted HIIT. Max effort every interval. Target HR 85-95%.",pullupNote:null}, {type:"strength",name:"Full Body Strength",instructor:"Rebecca Kennedy",mins:20,note:"Heavy compound moves. Break fast with protein immediately after.",pullupNote:null}, {type:"pullups",name:"Pull-Ups — Lat/Back Focus",instructor:"Self-Led",mins:10,note:"3 sets × 7-9 reps. Rest 90s. Overhand grip, full ROM.",pullupNote:"Phase 1: Standard pull-ups. Hit 9 reps → add pause at top."}, {type:"stretch",name:"Full Body Stretch",instructor:"Ben Alldis",mins:10,note:null,pullupNote:null}],
+2: [{type:"strength",name:"Upper Body Strength",instructor:"Ben Alldis",mins:30,note:"Use 35-50lb DBs. Focus: chest, shoulders, triceps. No pull-ups today — 48hr rule.",pullupNote:null}, {type:"core",name:"Core Strength",instructor:"Emma Lovewell",mins:10,note:null,pullupNote:null}, {type:"stretch",name:"Upper Body Stretch",instructor:"Jess Sims",mins:10,note:null,pullupNote:null}],
+3: [{type:"hiit",name:"HIIT & Hills Ride",instructor:"Matt Wilpers",mins:30,note:"Fasted. Push every surge. Seated climbs at heavy resistance.",pullupNote:null}, {type:"strength",name:"Lower Body Strength",instructor:"Adrian Williams",mins:20,note:"Heavy squats, deadlifts, lunges. 40-60lb DBs.",pullupNote:null}, {type:"stretch",name:"Lower Body Stretch",instructor:"Ben Alldis",mins:10,note:null,pullupNote:null}],
+4: [{type:"yoga",name:"Power Yoga Flow",instructor:"Aditi Shah",mins:30,note:"Active recovery. Mobility work. Fasted yoga fine.",pullupNote:null}, {type:"core",name:"Core Strength",instructor:"Rebecca Kennedy",mins:10,note:null,pullupNote:null}, {type:"stretch",name:"Full Body Stretch",instructor:"Aditi Shah",mins:5,note:null,pullupNote:null}],
+5: [{type:"hiit",name:"Power Zone Max Ride",instructor:"Matt Wilpers",mins:30,note:"Fasted. Stay in Zone 4-5 throughout. No coasting.",pullupNote:null}, {type:"strength",name:"Arms & Shoulders — Back Focus",instructor:"Andy Speer",mins:20,note:"Pull emphasis: rows, rear delts, shrugs.",pullupNote:null}, {type:"pullups",name:"Pull-Ups — Lat/Back Focus",instructor:"Self-Led",mins:10,note:"3 sets × 7-9 reps. Rest 90s. Overhand grip, full ROM.",pullupNote:"Phase 1: Standard pull-ups. Hit 9 reps → add pause at top."}, {type:"stretch",name:"Upper Body Stretch",instructor:"Jess Sims",mins:10,note:null,pullupNote:null}],
+6: [{type:"bootcamp",name:"Bike Bootcamp",instructor:"Robin Arzón",mins:45,note:"Fasted bootcamp. On-bike HIIT + off-bike strength combos.",pullupNote:null}, {type:"yoga",name:"Yoga Flow",instructor:"Anna Greenberg",mins:20,note:null,pullupNote:null}, {type:"stretch",name:"Full Body Stretch",instructor:"Anna Greenberg",mins:10,note:null,pullupNote:null}],
+8: [{type:"hiit",name:"Intervals Ride",instructor:"Alex Toussaint",mins:20,note:"Fasted HIIT. Sprint intervals. Max RPM on every push.",pullupNote:null}, {type:"strength",name:"Lower Body Strength",instructor:"Callie Gullickson",mins:20,note:"Glutes, quads, hamstrings. Use plyo box for step-ups.",pullupNote:null}, {type:"stretch",name:"Lower Body Stretch",instructor:"Callie Gullickson",mins:10,note:null,pullupNote:null}],
+9: [{type:"strength",name:"Full Body Strength",instructor:"Andy Speer",mins:30,note:"Compound supersets. Minimal rest = elevated HR.",pullupNote:null}, {type:"pullups",name:"Pull-Ups — Lat/Back Focus",instructor:"Self-Led",mins:10,note:"3 sets × 7-9 reps. Rest 90s. Overhand grip, full ROM.",pullupNote:"Phase 1: Standard pull-ups. Hit 9 reps → add pause at top."}, {type:"core",name:"Core Strength",instructor:"Jess Sims",mins:10,note:null,pullupNote:null}, {type:"stretch",name:"Full Body Stretch",instructor:"Jess Sims",mins:10,note:null,pullupNote:null}],
+10: [{type:"hiit",name:"Tabata Ride",instructor:"Tunde Oyeneyin",mins:20,note:"Fasted. 20s all-out / 10s recover × 8 rounds per block.",pullupNote:null}, {type:"strength",name:"Upper Body Strength",instructor:"Ben Alldis",mins:20,note:"Chest press, flyes, shoulder press. 35-50lb DBs. Pull-ups on Day 13.",pullupNote:null}, {type:"stretch",name:"Upper Body Stretch",instructor:"Ben Alldis",mins:10,note:null,pullupNote:null}],
+11: [{type:"yoga",name:"Sculpt Flow Yoga",instructor:"Zacharias Niedzwiecki",mins:30,note:"Strength yoga. Light DBs. Active recovery day.",pullupNote:null}, {type:"core",name:"Core Strength",instructor:"Emma Lovewell",mins:10,note:null,pullupNote:null}, {type:"stretch",name:"Full Body Stretch",instructor:"Aditi Shah",mins:5,note:null,pullupNote:null}],
+12: [{type:"hiit",name:"HIIT Ride",instructor:"Olivia Amato",mins:30,note:"Fasted. Push-recovery pattern. Burn fat for 24hrs after.",pullupNote:null}, {type:"strength",name:"Lower Body Strength",instructor:"Adrian Williams",mins:20,note:"Romanian deadlifts, leg press. 50-60lb DBs.",pullupNote:null}, {type:"stretch",name:"Lower Body Stretch",instructor:"Adrian Williams",mins:10,note:null,pullupNote:null}],
+13: [{type:"bootcamp",name:"Bike Bootcamp",instructor:"Jess Sims",mins:45,note:"Fasted. Max effort on every bike interval + floor strength.",pullupNote:null}, {type:"pullups",name:"Pull-Ups — Lat/Back Focus",instructor:"Self-Led",mins:10,note:"3 sets × 7-9 reps. Rest 90s. Overhand grip, full ROM.",pullupNote:"Phase 1: Standard pull-ups. Hit 9 reps → add pause at top."}, {type:"yoga",name:"Power Yoga",instructor:"Anna Greenberg",mins:20,note:null,pullupNote:null}, {type:"stretch",name:"Full Body Stretch",instructor:"Anna Greenberg",mins:10,note:null,pullupNote:null}],
+15: [{type:"hiit",name:"Tabata Ride",instructor:"Olivia Amato",mins:20,note:"Fasted HIIT. Max effort every interval. Target HR 85-95%.",pullupNote:null}, {type:"strength",name:"Full Body Strength",instructor:"Rebecca Kennedy",mins:20,note:"Go heavier than Week 1. Progressive overload.",pullupNote:null}, {type:"pullups",name:"Pull-Ups — Lat/Back Focus",instructor:"Self-Led",mins:10,note:"3 sets × 7-9 reps. Rest 90s. Overhand grip, full ROM.",pullupNote:"Phase 1: Standard pull-ups. Hit 9 reps → add pause at top."}, {type:"stretch",name:"Full Body Stretch",instructor:"Ben Alldis",mins:10,note:null,pullupNote:null}],
+16: [{type:"strength",name:"Upper Body Strength",instructor:"Andy Speer",mins:30,note:"Increase weight 5-10% from Week 2. Pull-ups on Day 19.",pullupNote:null}, {type:"core",name:"Core Strength",instructor:"Rebecca Kennedy",mins:10,note:null,pullupNote:null}, {type:"stretch",name:"Upper Body Stretch",instructor:"Jess Sims",mins:10,note:null,pullupNote:null}],
+17: [{type:"hiit",name:"HIIT & Hills Ride",instructor:"Matt Wilpers",mins:30,note:"Fasted. Push every surge. Seated climbs at heavy resistance.",pullupNote:null}, {type:"strength",name:"Lower Body Strength",instructor:"Callie Gullickson",mins:20,note:"Heavier this week. Aim 55-60lb on squats.",pullupNote:null}, {type:"stretch",name:"Lower Body Stretch",instructor:"Callie Gullickson",mins:10,note:null,pullupNote:null}],
+18: [{type:"yoga",name:"Power Flow Yoga",instructor:"Aditi Shah",mins:30,note:"Mobility + stretch. Active recovery.",pullupNote:null}, {type:"core",name:"Core Strength",instructor:"Emma Lovewell",mins:10,note:null,pullupNote:null}, {type:"stretch",name:"Full Body Stretch",instructor:"Aditi Shah",mins:5,note:null,pullupNote:null}],
+19: [{type:"hiit",name:"Power Zone Max Ride",instructor:"Matt Wilpers",mins:30,note:"Fasted. Stay in Zone 4-5 throughout. No coasting.",pullupNote:null}, {type:"strength",name:"Arms & Back",instructor:"Ben Alldis",mins:20,note:"Rows, curls, rear delts. Pull-up superset.",pullupNote:null}, {type:"pullups",name:"Pull-Ups — Lat/Back Focus",instructor:"Self-Led",mins:10,note:"3 sets × 7-9 reps. Rest 90s. Overhand grip, full ROM.",pullupNote:"Phase 1: Standard pull-ups. Hit 9 reps → add pause at top."}, {type:"stretch",name:"Upper Body Stretch",instructor:"Ben Alldis",mins:10,note:null,pullupNote:null}],
+20: [{type:"bootcamp",name:"Bike Bootcamp",instructor:"Robin Arzón",mins:45,note:"Fasted. Push harder than Week 1 bootcamp.",pullupNote:null}, {type:"yoga",name:"Power Yoga Flow",instructor:"Aditi Shah",mins:20,note:null,pullupNote:null}, {type:"stretch",name:"Full Body Stretch",instructor:"Aditi Shah",mins:10,note:null,pullupNote:null}],
+22: [{type:"yoga",name:"Yin Yoga",instructor:"Aditi Shah",mins:30,note:"Deep stretch. Full fast continues through class.",pullupNote:null}, {type:"stretch",name:"Full Body Stretch",instructor:"Aditi Shah",mins:15,note:null,pullupNote:null}],
+23: [{type:"ride",name:"Low Impact Ride",instructor:"Emma Lovewell",mins:20,note:"Easy cardio. Keep HR in Zone 2. Active recovery.",pullupNote:null}, {type:"stretch",name:"Lower Body Stretch",instructor:"Aditi Shah",mins:15,note:null,pullupNote:null}],
+24: [{type:"yoga",name:"Slow Flow Yoga",instructor:"Anna Greenberg",mins:30,note:"Mobility focus. Hip flexors and thoracic spine.",pullupNote:null}, {type:"stretch",name:"Hip Mobility Stretch",instructor:"Anna Greenberg",mins:10,note:null,pullupNote:null}],
+25: [{type:"strength",name:"Bodyweight Strength",instructor:"Andy Speer",mins:20,note:"Light bodyweight only. No added load this week.",pullupNote:null}, {type:"core",name:"Core Strength",instructor:"Emma Lovewell",mins:10,note:null,pullupNote:null}, {type:"stretch",name:"Full Body Stretch",instructor:"Andy Speer",mins:10,note:null,pullupNote:null}],
+26: [{type:"ride",name:"Recovery Ride",instructor:"Leanne Hainsby",mins:20,note:"Zone 2 only. Heart rate under 130. Pure flush.",pullupNote:null}, {type:"stretch",name:"Full Body Stretch",instructor:"Leanne Hainsby",mins:15,note:null,pullupNote:null}],
+27: [{type:"yoga",name:"Slow Flow Yoga",instructor:"Aditi Shah",mins:30,note:"Final recovery session before Phase 2.",pullupNote:null}, {type:"stretch",name:"Full Body Stretch",instructor:"Aditi Shah",mins:10,note:null,pullupNote:null}],
+29: [{type:"hiit",name:"Power Zone Max Ride",instructor:"Matt Wilpers",mins:45,note:"Fasted. Sustained Z4-5. This is your main fat burn session.",pullupNote:null}, {type:"strength",name:"Full Body Strength",instructor:"Rebecca Kennedy",mins:30,note:"Heavier than Phase 1. Supersets. 45-60lb compound.",pullupNote:null}, {type:"pullups",name:"Pull-Ups — Progressive Overload",instructor:"Self-Led",mins:12,note:"4 sets × 6-8 reps. Add 10lb plate or slow 3s negative.",pullupNote:"Phase 2: Weighted or 3-sec eccentric. Max effort on final set."}, {type:"stretch",name:"Full Body Stretch",instructor:"Ben Alldis",mins:10,note:null,pullupNote:null}],
+30: [{type:"strength",name:"Upper Body Strength",instructor:"Ben Alldis",mins:30,note:"Increase all weights 10-15% from Phase 1. Pull-ups on Day 33.",pullupNote:null}, {type:"core",name:"Core Strength",instructor:"Emma Lovewell",mins:15,note:null,pullupNote:null}, {type:"stretch",name:"Upper Body Stretch",instructor:"Ben Alldis",mins:10,note:null,pullupNote:null}],
+31: [{type:"hiit",name:"Tabata Ride",instructor:"Alex Toussaint",mins:30,note:"Fasted HIIT. Explosive 20s efforts. Lactic threshold work.",pullupNote:null}, {type:"strength",name:"Lower Body Strength",instructor:"Adrian Williams",mins:30,note:"Heavy Romanian DL 55-60lb. Bulgarian split squats.",pullupNote:null}, {type:"stretch",name:"Lower Body Stretch",instructor:"Adrian Williams",mins:10,note:null,pullupNote:null}],
+32: [{type:"yoga",name:"Power Flow Yoga",instructor:"Zacharias Niedzwiecki",mins:30,note:"Strength yoga with light weights. Hip mobility.",pullupNote:null}, {type:"core",name:"Core Strength",instructor:"Jess Sims",mins:15,note:null,pullupNote:null}, {type:"stretch",name:"Full Body Stretch",instructor:"Aditi Shah",mins:10,note:null,pullupNote:null}],
+33: [{type:"hiit",name:"HIIT & Hills Ride",instructor:"Matt Wilpers",mins:45,note:"Fasted. Max intensity on every climb. No recovery coasting.",pullupNote:null}, {type:"strength",name:"Upper Body Strength — Push",instructor:"Andy Speer",mins:30,note:"Chest + shoulders + triceps. 40-55lb DBs.",pullupNote:null}, {type:"pullups",name:"Pull-Ups — Progressive Overload",instructor:"Self-Led",mins:12,note:"4 sets × 6-8 reps. Add 10lb plate or slow 3s negative.",pullupNote:"Phase 2: Weighted or 3-sec eccentric. Max effort on final set."}, {type:"stretch",name:"Upper Body Stretch",instructor:"Andy Speer",mins:10,note:null,pullupNote:null}],
+34: [{type:"bootcamp",name:"Bike Bootcamp",instructor:"Jess Sims",mins:60,note:"Fasted 60-min bootcamp. Peak calorie burn for the week.",pullupNote:null}, {type:"yoga",name:"Yoga + Pilates",instructor:"Anna Greenberg",mins:20,note:null,pullupNote:null}, {type:"stretch",name:"Full Body Stretch",instructor:"Anna Greenberg",mins:10,note:null,pullupNote:null}],
+36: [{type:"hiit",name:"Intervals Ride",instructor:"Olivia Amato",mins:30,note:"Fasted. 30s on / 30s off format. Keep HR elevated.",pullupNote:null}, {type:"strength",name:"Lower Body Power",instructor:"Adrian Williams",mins:30,note:"Deadlifts 60lb, box jumps (plyo box), heavy lunges.",pullupNote:null}, {type:"stretch",name:"Lower Body Stretch",instructor:"Adrian Williams",mins:10,note:null,pullupNote:null}],
+37: [{type:"strength",name:"Full Body Strength",instructor:"Andy Speer",mins:30,note:"Circuit format. Keep rest under 60s for fat burn.",pullupNote:null}, {type:"pullups",name:"Pull-Ups — Progressive Overload",instructor:"Self-Led",mins:12,note:"4 sets × 6-8 reps. Add 10lb plate or slow 3s negative.",pullupNote:"Phase 2: Weighted or 3-sec eccentric. Max effort on final set."}, {type:"core",name:"Core Strength",instructor:"Rebecca Kennedy",mins:15,note:null,pullupNote:null}, {type:"stretch",name:"Full Body Stretch",instructor:"Andy Speer",mins:10,note:null,pullupNote:null}],
+38: [{type:"hiit",name:"Power Zone Max Ride",instructor:"Matt Wilpers",mins:45,note:"Fasted. Hit your peak output. Stronger than last week.",pullupNote:null}, {type:"strength",name:"Arms & Back Pull Day",instructor:"Ben Alldis",mins:30,note:"All pulling movements. Rows, curls, face pulls. Pull-ups Day 40.",pullupNote:null}, {type:"stretch",name:"Upper Body Stretch",instructor:"Ben Alldis",mins:10,note:null,pullupNote:null}],
+39: [{type:"yoga",name:"Sculpt Flow",instructor:"Greta Dopp",mins:30,note:"Light weights in yoga class. Active mobility.",pullupNote:null}, {type:"core",name:"Core Strength",instructor:"Jess Sims",mins:15,note:null,pullupNote:null}, {type:"stretch",name:"Full Body Stretch",instructor:"Aditi Shah",mins:10,note:null,pullupNote:null}],
+40: [{type:"hiit",name:"Climb Ride",instructor:"Christine D'Ercole",mins:45,note:"Fasted. Heavy resistance sustained climbs. Max calorie burn.",pullupNote:null}, {type:"strength",name:"Upper Body Strength",instructor:"Rebecca Kennedy",mins:30,note:"Push/pull superset. Max weight for 8-10 reps.",pullupNote:null}, {type:"pullups",name:"Pull-Ups — Progressive Overload",instructor:"Self-Led",mins:12,note:"4 sets × 6-8 reps. Add 10lb plate or slow 3s negative.",pullupNote:"Phase 2: Weighted or 3-sec eccentric. Max effort on final set."}, {type:"stretch",name:"Upper Body Stretch",instructor:"Jess Sims",mins:10,note:null,pullupNote:null}],
+41: [{type:"bootcamp",name:"Bike Bootcamp",instructor:"Robin Arzón",mins:60,note:"Fasted 60-min. Go harder than Day 34.",pullupNote:null}, {type:"yoga",name:"Power Yoga",instructor:"Aditi Shah",mins:20,note:null,pullupNote:null}, {type:"stretch",name:"Full Body Stretch",instructor:"Aditi Shah",mins:10,note:null,pullupNote:null}],
+43: [{type:"hiit",name:"Power Zone Max Ride",instructor:"Matt Wilpers",mins:45,note:"Fasted. Sustained Z4-5. This is your main fat burn session.",pullupNote:null}, {type:"strength",name:"Full Body Strength",instructor:"Rebecca Kennedy",mins:30,note:"Final week P2. Max load on every set.",pullupNote:null}, {type:"pullups",name:"Pull-Ups — Progressive Overload",instructor:"Self-Led",mins:12,note:"4 sets × 6-8 reps. Add 10lb plate or slow 3s negative.",pullupNote:"Phase 2: Weighted or 3-sec eccentric. Max effort on final set."}, {type:"stretch",name:"Full Body Stretch",instructor:"Ben Alldis",mins:10,note:null,pullupNote:null}],
+44: [{type:"strength",name:"Lower Body Strength",instructor:"Adrian Williams",mins:30,note:"Heaviest lower body week yet. Drive progressive overload.",pullupNote:null}, {type:"core",name:"Core Strength",instructor:"Emma Lovewell",mins:15,note:null,pullupNote:null}, {type:"stretch",name:"Lower Body Stretch",instructor:"Adrian Williams",mins:10,note:null,pullupNote:null}],
+45: [{type:"hiit",name:"Tabata Ride",instructor:"Alex Toussaint",mins:30,note:"Fasted HIIT. Explosive 20s efforts. Lactic threshold work.",pullupNote:null}, {type:"strength",name:"Upper Body Strength — Push",instructor:"Andy Speer",mins:30,note:"Bench press equivalent, shoulder press, dips.",pullupNote:null}, {type:"pullups",name:"Pull-Ups — Progressive Overload",instructor:"Self-Led",mins:12,note:"4 sets × 6-8 reps. Add 10lb plate or slow 3s negative.",pullupNote:"Phase 2: Weighted or 3-sec eccentric. Max effort on final set."}, {type:"stretch",name:"Upper Body Stretch",instructor:"Andy Speer",mins:10,note:null,pullupNote:null}],
+46: [{type:"yoga",name:"Power Flow Yoga",instructor:"Aditi Shah",mins:30,note:"Pre-phase 3 mobility. Focus hamstrings and hips.",pullupNote:null}, {type:"core",name:"Core Strength",instructor:"Rebecca Kennedy",mins:15,note:null,pullupNote:null}, {type:"stretch",name:"Full Body Stretch",instructor:"Aditi Shah",mins:10,note:null,pullupNote:null}],
+47: [{type:"hiit",name:"HIIT & Hills Ride",instructor:"Matt Wilpers",mins:45,note:"Fasted. Max intensity on every climb. No recovery coasting.",pullupNote:null}, {type:"strength",name:"Arms & Back",instructor:"Ben Alldis",mins:30,note:"Heaviest pull session of Phase 2.",pullupNote:null}, {type:"pullups",name:"Pull-Ups — Progressive Overload",instructor:"Self-Led",mins:12,note:"4 sets × 6-8 reps. Add 10lb plate or slow 3s negative.",pullupNote:"Phase 2: Weighted or 3-sec eccentric. Max effort on final set."}, {type:"stretch",name:"Upper Body Stretch",instructor:"Ben Alldis",mins:10,note:null,pullupNote:null}],
+48: [{type:"bootcamp",name:"Bike Bootcamp",instructor:"Jess Sims",mins:60,note:"Phase 2 final bootcamp. Beat every previous score.",pullupNote:null}, {type:"yoga",name:"Yoga + Pilates",instructor:"Anna Greenberg",mins:20,note:null,pullupNote:null}, {type:"stretch",name:"Full Body Stretch",instructor:"Anna Greenberg",mins:10,note:null,pullupNote:null}],
+50: [{type:"yoga",name:"Slow Flow Yoga",instructor:"Aditi Shah",mins:30,note:"Deep recovery. Nervous system reset.",pullupNote:null}, {type:"stretch",name:"Full Body Stretch",instructor:"Aditi Shah",mins:15,note:null,pullupNote:null}],
+51: [{type:"ride",name:"Low Impact Ride",instructor:"Emma Lovewell",mins:20,note:"Zone 2 flush. Keep it easy.",pullupNote:null}, {type:"stretch",name:"Lower Body Stretch",instructor:"Aditi Shah",mins:15,note:null,pullupNote:null}],
+52: [{type:"yoga",name:"Yin Yoga",instructor:"Anna Greenberg",mins:30,note:"Joint and connective tissue work.",pullupNote:null}, {type:"stretch",name:"Hip Mobility Stretch",instructor:"Anna Greenberg",mins:10,note:null,pullupNote:null}],
+53: [{type:"strength",name:"Bodyweight Strength",instructor:"Andy Speer",mins:20,note:"Movement patterns only. Light and smooth.",pullupNote:null}, {type:"core",name:"Core Strength",instructor:"Emma Lovewell",mins:10,note:null,pullupNote:null}, {type:"stretch",name:"Full Body Stretch",instructor:"Andy Speer",mins:10,note:null,pullupNote:null}],
+54: [{type:"ride",name:"Recovery Ride",instructor:"Leanne Hainsby",mins:20,note:"Flush the legs. Zone 1-2 only.",pullupNote:null}, {type:"stretch",name:"Full Body Stretch",instructor:"Leanne Hainsby",mins:15,note:null,pullupNote:null}],
+55: [{type:"yoga",name:"Power Yoga Flow",instructor:"Aditi Shah",mins:30,note:"Prime for Phase 3. Activate without taxing.",pullupNote:null}, {type:"stretch",name:"Full Body Stretch",instructor:"Aditi Shah",mins:10,note:null,pullupNote:null}],
+57: [{type:"hiit",name:"Power Zone Max Ride",instructor:"Matt Wilpers",mins:45,note:"Fasted. Go all-out. Week 9+ = peak phase. Leave nothing.",pullupNote:null}, {type:"strength",name:"Full Body Strength",instructor:"Andy Speer",mins:30,note:"Phase 3 opener. Heaviest weights of program.",pullupNote:null}, {type:"pullups",name:"Pull-Ups — Max Volume",instructor:"Self-Led",mins:12,note:"4 sets AMRAP (rest 60s). Aim 35+ total reps. Mix grip on last 2 sets.",pullupNote:"Phase 3: All-out. Track total reps. Beat last week."}, {type:"stretch",name:"Full Body Stretch",instructor:"Andy Speer",mins:10,note:null,pullupNote:null}],
+58: [{type:"strength",name:"Upper Body Strength",instructor:"Rebecca Kennedy",mins:30,note:"Max load push day. 50-60lb press movements. Pull-ups Day 61.",pullupNote:null}, {type:"core",name:"Core Strength",instructor:"Emma Lovewell",mins:15,note:null,pullupNote:null}, {type:"stretch",name:"Upper Body Stretch",instructor:"Jess Sims",mins:10,note:null,pullupNote:null}],
+59: [{type:"hiit",name:"Tabata Ride",instructor:"Olivia Amato",mins:30,note:"Fasted HIIT. Hardest 20s efforts of the program.",pullupNote:null}, {type:"strength",name:"Lower Body Power",instructor:"Adrian Williams",mins:30,note:"Heaviest deadlifts of program. 60lb+ RDLs.",pullupNote:null}, {type:"stretch",name:"Lower Body Stretch",instructor:"Adrian Williams",mins:10,note:null,pullupNote:null}],
+60: [{type:"yoga",name:"Sculpt Flow",instructor:"Zacharias Niedzwiecki",mins:30,note:"Strength yoga. Active recovery with light load.",pullupNote:null}, {type:"core",name:"Core Strength",instructor:"Jess Sims",mins:15,note:null,pullupNote:null}, {type:"stretch",name:"Full Body Stretch",instructor:"Aditi Shah",mins:10,note:null,pullupNote:null}],
+61: [{type:"hiit",name:"HIIT & Hills Ride",instructor:"Matt Wilpers",mins:45,note:"Fasted. Final push phase. Max fat oxidation before 10am break-fast.",pullupNote:null}, {type:"strength",name:"Upper Body Strength — Pull",instructor:"Ben Alldis",mins:30,note:"All rows, pull movements, rear delts, curls.",pullupNote:null}, {type:"pullups",name:"Pull-Ups — Max Volume",instructor:"Self-Led",mins:12,note:"4 sets AMRAP (rest 60s). Aim 35+ total reps. Mix grip on last 2 sets.",pullupNote:"Phase 3: All-out. Track total reps. Beat last week."}, {type:"stretch",name:"Upper Body Stretch",instructor:"Ben Alldis",mins:10,note:null,pullupNote:null}],
+62: [{type:"bootcamp",name:"Bike Bootcamp",instructor:"Robin Arzón",mins:60,note:"Phase 3 bootcamp. Max output start to finish.",pullupNote:null}, {type:"yoga",name:"Yoga + Pilates",instructor:"Anna Greenberg",mins:20,note:null,pullupNote:null}, {type:"stretch",name:"Full Body Stretch",instructor:"Anna Greenberg",mins:10,note:null,pullupNote:null}],
+64: [{type:"hiit",name:"Intervals Ride",instructor:"Alex Toussaint",mins:45,note:"Fasted. Sprint-recovery. Every rep at max capability.",pullupNote:null}, {type:"strength",name:"Full Body Strength",instructor:"Rebecca Kennedy",mins:30,note:"Supersets. 45s rest max. Keep HR elevated through strength.",pullupNote:null}, {type:"pullups",name:"Pull-Ups — Max Volume",instructor:"Self-Led",mins:12,note:"4 sets AMRAP (rest 60s). Aim 35+ total reps. Mix grip on last 2 sets.",pullupNote:"Phase 3: All-out. Track total reps. Beat last week."}, {type:"stretch",name:"Full Body Stretch",instructor:"Ben Alldis",mins:10,note:null,pullupNote:null}],
+65: [{type:"strength",name:"Lower Body Strength",instructor:"Callie Gullickson",mins:30,note:"Squat + deadlift day. Heaviest week yet.",pullupNote:null}, {type:"core",name:"Core Strength",instructor:"Rebecca Kennedy",mins:15,note:null,pullupNote:null}, {type:"stretch",name:"Lower Body Stretch",instructor:"Callie Gullickson",mins:10,note:null,pullupNote:null}],
+66: [{type:"hiit",name:"Power Zone Max Ride",instructor:"Matt Wilpers",mins:45,note:"Fasted peak ride. Beat your previous output.",pullupNote:null}, {type:"strength",name:"Upper Body Strength — Push",instructor:"Andy Speer",mins:30,note:"Max load. Aim to beat W7 numbers.",pullupNote:null}, {type:"pullups",name:"Pull-Ups — Max Volume",instructor:"Self-Led",mins:12,note:"4 sets AMRAP (rest 60s). Aim 35+ total reps. Mix grip on last 2 sets.",pullupNote:"Phase 3: All-out. Track total reps. Beat last week."}, {type:"stretch",name:"Upper Body Stretch",instructor:"Andy Speer",mins:10,note:null,pullupNote:null}],
+67: [{type:"yoga",name:"Power Flow Yoga",instructor:"Aditi Shah",mins:30,note:"Mid-phase mobility. Keep hips and shoulders open.",pullupNote:null}, {type:"core",name:"Core Strength",instructor:"Emma Lovewell",mins:15,note:null,pullupNote:null}, {type:"stretch",name:"Full Body Stretch",instructor:"Aditi Shah",mins:10,note:null,pullupNote:null}],
+68: [{type:"hiit",name:"Climb Ride",instructor:"Christine D'Ercole",mins:45,note:"Fasted. Heavy sustained effort. Finishing strong.",pullupNote:null}, {type:"strength",name:"Lower Body Power",instructor:"Adrian Williams",mins:30,note:"Bulgarian split squats, step-ups, weighted lunges.",pullupNote:null}, {type:"stretch",name:"Lower Body Stretch",instructor:"Adrian Williams",mins:10,note:null,pullupNote:null}],
+69: [{type:"bootcamp",name:"Bike Bootcamp",instructor:"Jess Sims",mins:60,note:"Fasted 60-min. Hardest bootcamp yet.",pullupNote:null}, {type:"yoga",name:"Power Yoga",instructor:"Zacharias Niedzwiecki",mins:20,note:null,pullupNote:null}, {type:"stretch",name:"Full Body Stretch",instructor:"Aditi Shah",mins:10,note:null,pullupNote:null}],
+71: [{type:"hiit",name:"Power Zone Max Ride",instructor:"Matt Wilpers",mins:45,note:"Fasted. Go all-out. Week 9+ = peak phase. Leave nothing.",pullupNote:null}, {type:"strength",name:"Full Body Strength",instructor:"Andy Speer",mins:30,note:"Week 11. You know what to do. Go heavier.",pullupNote:null}, {type:"pullups",name:"Pull-Ups — Max Volume",instructor:"Self-Led",mins:12,note:"4 sets AMRAP (rest 60s). Aim 35+ total reps. Mix grip on last 2 sets.",pullupNote:"Phase 3: All-out. Track total reps. Beat last week."}, {type:"stretch",name:"Full Body Stretch",instructor:"Andy Speer",mins:10,note:null,pullupNote:null}],
+72: [{type:"strength",name:"Upper Body Strength",instructor:"Ben Alldis",mins:30,note:"Final heavy push week. Max reps at working weight. Pull-ups Day 75.",pullupNote:null}, {type:"core",name:"Core Strength",instructor:"Jess Sims",mins:15,note:null,pullupNote:null}, {type:"stretch",name:"Upper Body Stretch",instructor:"Ben Alldis",mins:10,note:null,pullupNote:null}],
+73: [{type:"hiit",name:"Tabata Ride",instructor:"Olivia Amato",mins:30,note:"Fasted HIIT. Hardest 20s efforts of the program.",pullupNote:null}, {type:"strength",name:"Lower Body Strength",instructor:"Callie Gullickson",mins:30,note:"Last heavy leg week. Leave everything in the tank.",pullupNote:null}, {type:"stretch",name:"Lower Body Stretch",instructor:"Callie Gullickson",mins:10,note:null,pullupNote:null}],
+74: [{type:"yoga",name:"Sculpt Flow",instructor:"Greta Dopp",mins:30,note:"Active recovery. Keep the body primed.",pullupNote:null}, {type:"core",name:"Core Strength",instructor:"Emma Lovewell",mins:15,note:null,pullupNote:null}, {type:"stretch",name:"Full Body Stretch",instructor:"Aditi Shah",mins:10,note:null,pullupNote:null}],
+75: [{type:"hiit",name:"HIIT & Hills Ride",instructor:"Matt Wilpers",mins:45,note:"Fasted. Final push phase. Max fat oxidation before 10am break-fast.",pullupNote:null}, {type:"strength",name:"Upper Body Strength — Pull",instructor:"Rebecca Kennedy",mins:30,note:"Max pull day. Row everything heavy.",pullupNote:null}, {type:"pullups",name:"Pull-Ups — Max Volume",instructor:"Self-Led",mins:12,note:"4 sets AMRAP (rest 60s). Aim 35+ total reps. Mix grip on last 2 sets.",pullupNote:"Phase 3: All-out. Track total reps. Beat last week."}, {type:"stretch",name:"Upper Body Stretch",instructor:"Jess Sims",mins:10,note:null,pullupNote:null}],
+76: [{type:"bootcamp",name:"Bike Bootcamp",instructor:"Robin Arzón",mins:60,note:"Penultimate bootcamp. Peak performance.",pullupNote:null}, {type:"yoga",name:"Yoga + Pilates",instructor:"Anna Greenberg",mins:20,note:null,pullupNote:null}, {type:"stretch",name:"Full Body Stretch",instructor:"Anna Greenberg",mins:10,note:null,pullupNote:null}],
+78: [{type:"hiit",name:"Intervals Ride",instructor:"Alex Toussaint",mins:45,note:"Fasted. Sprint-recovery. Every rep at max capability.",pullupNote:null}, {type:"strength",name:"Full Body Strength",instructor:"Rebecca Kennedy",mins:20,note:"Deload week. Drop weight 20%. Focus form.",pullupNote:null}, {type:"pullups",name:"Pull-Ups — Max Volume",instructor:"Self-Led",mins:12,note:"4 sets AMRAP (rest 60s). Aim 35+ total reps. Mix grip on last 2 sets.",pullupNote:"Phase 3: All-out. Track total reps. Beat last week."}, {type:"stretch",name:"Full Body Stretch",instructor:"Ben Alldis",mins:10,note:null,pullupNote:null}],
+79: [{type:"strength",name:"Upper Body Strength",instructor:"Ben Alldis",mins:20,note:"Lighter weight. Perfect reps.",pullupNote:null}, {type:"core",name:"Core Strength",instructor:"Emma Lovewell",mins:10,note:null,pullupNote:null}, {type:"stretch",name:"Upper Body Stretch",instructor:"Ben Alldis",mins:10,note:null,pullupNote:null}],
+80: [{type:"yoga",name:"Yin Yoga",instructor:"Aditi Shah",mins:30,note:"Deep deload recovery.",pullupNote:null}, {type:"stretch",name:"Full Body Stretch",instructor:"Aditi Shah",mins:15,note:null,pullupNote:null}],
+81: [{type:"ride",name:"Low Impact Ride",instructor:"Emma Lovewell",mins:20,note:"Zone 2. Body preparing for Victory Week.",pullupNote:null}, {type:"strength",name:"Lower Body Strength",instructor:"Adrian Williams",mins:20,note:"Light deload.",pullupNote:null}, {type:"stretch",name:"Lower Body Stretch",instructor:"Adrian Williams",mins:10,note:null,pullupNote:null}],
+82: [{type:"hiit",name:"Power Zone Max Ride",instructor:"Matt Wilpers",mins:45,note:"Fasted peak ride. Beat your previous output.",pullupNote:null}, {type:"strength",name:"Upper Body Strength",instructor:"Andy Speer",mins:20,note:"Deload. Light and sharp.",pullupNote:null}, {type:"stretch",name:"Upper Body Stretch",instructor:"Andy Speer",mins:10,note:null,pullupNote:null}],
+83: [{type:"yoga",name:"Slow Flow Yoga",instructor:"Aditi Shah",mins:30,note:"Final prep. Mentally prime for Victory Week.",pullupNote:null}, {type:"stretch",name:"Full Body Stretch",instructor:"Aditi Shah",mins:10,note:null,pullupNote:null}],
+85: [{type:"hiit",name:"Power Zone Max Ride",instructor:"Matt Wilpers",mins:45,note:"Fasted. Go all-out. Week 9+ = peak phase. Leave nothing.",pullupNote:null}, {type:"strength",name:"Full Body Strength",instructor:"Andy Speer",mins:30,note:"Victory Week. Max load. Show what 84 days built.",pullupNote:null}, {type:"pullups",name:"Pull-Ups — Max Volume",instructor:"Self-Led",mins:12,note:"4 sets AMRAP (rest 60s). Aim 35+ total reps. Mix grip on last 2 sets.",pullupNote:"Phase 3: All-out. Track total reps. Beat last week."}, {type:"stretch",name:"Full Body Stretch",instructor:"Andy Speer",mins:10,note:null,pullupNote:null}],
+86: [{type:"strength",name:"Upper Body Strength",instructor:"Rebecca Kennedy",mins:30,note:"Heaviest upper body session of the program. Pull-ups Day 89.",pullupNote:null}, {type:"core",name:"Core Strength",instructor:"Jess Sims",mins:15,note:null,pullupNote:null}, {type:"stretch",name:"Upper Body Stretch",instructor:"Jess Sims",mins:10,note:null,pullupNote:null}],
+87: [{type:"hiit",name:"HIIT & Hills Ride",instructor:"Matt Wilpers",mins:45,note:"Fasted. Final push phase. Max fat oxidation before 10am break-fast.",pullupNote:null}, {type:"strength",name:"Lower Body Power",instructor:"Adrian Williams",mins:30,note:"Heaviest lower body of the program.",pullupNote:null}, {type:"stretch",name:"Lower Body Stretch",instructor:"Adrian Williams",mins:10,note:null,pullupNote:null}],
+88: [{type:"yoga",name:"Power Flow Yoga",instructor:"Aditi Shah",mins:30,note:"Final yoga session. Reflect on 88 days.",pullupNote:null}, {type:"core",name:"Core Strength",instructor:"Emma Lovewell",mins:15,note:null,pullupNote:null}, {type:"stretch",name:"Full Body Stretch",instructor:"Aditi Shah",mins:10,note:null,pullupNote:null}],
+89: [{type:"hiit",name:"Power Zone Max Ride",instructor:"Matt Wilpers",mins:45,note:"Fasted peak ride. Beat your previous output.",pullupNote:null}, {type:"bootcamp",name:"Bike Bootcamp",instructor:"Jess Sims",mins:60,note:"Final bootcamp. Everything you have.",pullupNote:null}, {type:"pullups",name:"Pull-Ups — Max Volume",instructor:"Self-Led",mins:12,note:"4 sets AMRAP (rest 60s). Aim 35+ total reps. Mix grip on last 2 sets.",pullupNote:"Phase 3: All-out. Track total reps. Beat last week."}, {type:"stretch",name:"Full Body Stretch",instructor:"Jess Sims",mins:10,note:null,pullupNote:null}],
+90: [{type:"hiit",name:"Victory Ride — Max Output",instructor:"Your Choice",mins:30,note:"90 days. Fasted. Everything you have. 🔥",pullupNote:null}, {type:"yoga",name:"Power Flow Yoga",instructor:"Aditi Shah",mins:30,note:"Final flow. Celebrate the work.",pullupNote:null}, {type:"stretch",name:"Full Body Stretch — You Did It 🎉",instructor:"All",mins:20,note:"Final stretch. You are done.",pullupNote:null}],
 };
 
 // ══════════════════════════════════════════════
@@ -1248,104 +1208,40 @@ setInterval(()=>{
 },60000);
 
 // ══════════════════════════════════════════════
-// PWA SETUP — Manifest, Service Worker, Icons
+// PWA SETUP — Icons, Service Worker, iOS Banner
+// manifest.json and sw.js are now separate files
 // ══════════════════════════════════════════════
 
 (function initPWA() {
-  // ── Generate app icon via canvas ──
+  // ── Generate apple-touch-icon via canvas (iOS home screen icon) ──
+  // To change the icon design, edit generate-icons.html and re-download icon-192.png / icon-512.png
   function makeIcon(size) {
     const c = document.createElement('canvas');
     c.width = c.height = size;
     const ctx = c.getContext('2d');
-    // Background
     ctx.fillStyle = '#080810';
     ctx.fillRect(0, 0, size, size);
-    // Red accent bar top
     ctx.fillStyle = '#e8322a';
     ctx.fillRect(0, 0, size, size * 0.07);
-    // Big "90" text
     ctx.fillStyle = '#e8322a';
     ctx.font = `900 ${size * 0.42}px 'Arial Black', Arial`;
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
     ctx.fillText('90', size / 2, size * 0.42);
-    // "PELOTON" subtext
     ctx.fillStyle = 'rgba(240,238,232,0.7)';
     ctx.font = `700 ${size * 0.13}px Arial`;
-    ctx.letterSpacing = '0.1em';
     ctx.fillText('PELOTON', size / 2, size * 0.72);
-    // Small teal dot
     ctx.fillStyle = '#1eb89a';
     ctx.beginPath();
     ctx.arc(size / 2, size * 0.87, size * 0.04, 0, Math.PI * 2);
     ctx.fill();
     return c.toDataURL('image/png');
   }
+  document.getElementById('appleTouchIcon').href = makeIcon(192);
 
-  const icon192 = makeIcon(192);
-  const icon512 = makeIcon(512);
-
-  // ── Inject apple-touch-icon ──
-  document.getElementById('appleTouchIcon').href = icon192;
-
-  // ── Create and inject manifest ──
-  const manifest = {
-    name: 'Peloton 90 · Fat Loss',
-    short_name: 'P90 Peloton',
-    description: '90-Day Peloton Fat Loss Program with fasting protocol and progress tracking',
-    start_url: './',
-    display: 'standalone',
-    orientation: 'portrait',
-    background_color: '#080810',
-    theme_color: '#080810',
-    icons: [
-      { src: icon192, sizes: '192x192', type: 'image/png', purpose: 'any maskable' },
-      { src: icon512, sizes: '512x512', type: 'image/png', purpose: 'any maskable' }
-    ]
-  };
-  const manifestBlob = new Blob([JSON.stringify(manifest)], {type:'application/json'});
-  const manifestURL = URL.createObjectURL(manifestBlob);
-  document.getElementById('manifestLink').href = manifestURL;
-
-  // ── Register Service Worker (inline via blob) ──
-  const swCode = `
-const CACHE = 'p90-v9';
-const ASSETS = [self.location.href || '/'];
-
-self.addEventListener('install', e => {
-  e.waitUntil(
-    caches.open(CACHE).then(cache => cache.addAll(ASSETS)).then(() => self.skipWaiting())
-  );
-});
-
-self.addEventListener('activate', e => {
-  e.waitUntil(
-    caches.keys().then(keys =>
-      Promise.all(keys.filter(k => k !== CACHE).map(k => caches.delete(k)))
-    ).then(() => self.clients.claim())
-  );
-});
-
-self.addEventListener('fetch', e => {
-  e.respondWith(
-    caches.match(e.request).then(cached => {
-      if (cached) return cached;
-      return fetch(e.request).then(res => {
-        if (res && res.status === 200 && res.type === 'basic') {
-          const clone = res.clone();
-          caches.open(CACHE).then(c => c.put(e.request, clone));
-        }
-        return res;
-      }).catch(() => caches.match(e.request));
-    })
-  );
-});
-`;
-
+  // ── Register Service Worker from sw.js ──
   if ('serviceWorker' in navigator) {
-    const swBlob = new Blob([swCode], {type: 'application/javascript'});
-    const swURL = URL.createObjectURL(swBlob);
-    navigator.serviceWorker.register(swURL, {scope: './'})
+    navigator.serviceWorker.register('./sw.js', { scope: './' })
       .then(() => console.log('P90 SW registered'))
       .catch(e => console.log('SW note:', e.message));
   }
