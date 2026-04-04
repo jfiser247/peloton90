@@ -771,13 +771,24 @@ function renderToday() {
   const fastLabels = {daily:'17:7 Daily', extended:'24hr Extended', deep:'20hr Deep Fast'};
   const fastColors = {daily:'var(--teal)', extended:'var(--purple)', deep:'var(--gold)'};
   const fastBannerClass = viewFastType !== 'daily' ? viewFastType : '';
+  const isViewingToday = day === todayDay;
+
+  // Static descriptions for non-today days — avoids mixing live status with wrong fast type
+  const staticFastDesc = {
+    daily:    {icon:'⏱', status:'17:7 Daily Fast', msg:'Eating window 10am–5pm. Train fasted at 7:30am. Break fast with 40g+ protein at 10am.'},
+    extended: {icon:'💜', status:'24HR Extended Fast', msg:'Full 24hr fast. Last meal Sat 5pm. Break fast at 5pm tonight. Water + electrolytes only.'},
+    deep:     {icon:'🟡', status:'20HR Deep Fast', msg:'Compressed 2hr window: eat only 3–5pm. 50g+ protein in that window.'},
+  };
+  const bannerStatus = isViewingToday ? fast.status : staticFastDesc[viewFastType].status;
+  const bannerMsg    = isViewingToday ? fast.msg    : staticFastDesc[viewFastType].msg;
+  const bannerIcon   = isViewingToday ? (fast.icon||'⏱') : staticFastDesc[viewFastType].icon;
 
   let html = `
   <div class="fast-banner ${fastBannerClass}">
-    <div class="fast-icon">${fast.icon||'⏱'}</div>
+    <div class="fast-icon">${bannerIcon}</div>
     <div class="fast-info">
-      <div class="fast-title" style="color:${fastColors[viewFastType]}">${fastLabels[viewFastType]} · ${fast.status}</div>
-      <div class="fast-detail">${fast.msg}</div>
+      <div class="fast-title" style="color:${fastColors[viewFastType]}">${fastLabels[viewFastType]} · ${bannerStatus}</div>
+      <div class="fast-detail">${bannerMsg}</div>
     </div>
   </div>
   <div class="day-hero">
