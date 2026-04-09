@@ -1221,7 +1221,7 @@ function switchTab(tab) {
   document.getElementById(`tab-${tab}`).classList.add('active');
   document.getElementById(`screen-${tab}`).classList.add('active');
   document.querySelector('.scroll-view').scrollTop=0;
-  if(tab==='today') renderToday();
+  if(tab==='today') { state.viewingDay=getTodayDay(); saveState(); renderToday(); }
   else if(tab==='schedule') renderSchedule();
   else renderProgress();
 }
