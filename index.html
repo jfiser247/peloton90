@@ -643,6 +643,32 @@ const SCHEDULE = {
 89: [{type:"hiit",name:"Power Zone Max Ride",instructor:"Matt Wilpers",mins:45,note:"Fasted peak ride. Beat your previous output.",pullupNote:null}, {type:"bootcamp",name:"Bike Bootcamp",instructor:"Jess Sims",mins:60,note:"Final bootcamp. Everything you have.",pullupNote:null}, {type:"pullups",name:"Pull-Ups — Max Volume",instructor:"Self-Led",mins:12,note:"4 sets AMRAP (rest 60s). Aim 35+ total reps. Mix grip on last 2 sets.",pullupNote:"Phase 3: All-out. Track total reps. Beat last week."}, {type:"stretch",name:"Full Body Stretch",instructor:"Jess Sims",mins:10,note:null,pullupNote:null}],
 90: [{type:"hiit",name:"Victory Ride — Max Output",instructor:"Your Choice",mins:30,note:"90 days. Fasted. Everything you have. 🔥",pullupNote:null}, {type:"yoga",name:"Power Flow Yoga",instructor:"Aditi Shah",mins:30,note:"Final flow. Celebrate the work.",pullupNote:null}, {type:"stretch",name:"Full Body Stretch — You Did It 🎉",instructor:"All",mins:20,note:"Final stretch. You are done.",pullupNote:null}],
 };
+// ── Measurement helpers — generated from Swift profile ──
+function onMeasureWkChange(wk) {
+  const m = state.measurements.find(m => m.week === wk);
+  document.getElementById("m-weight").value = m?.weight || '';
+  document.getElementById("m-fat").value = m?.bodyFat || '';
+  document.getElementById("m-muscle").value = m?.muscle || '';
+  document.getElementById("m-water").value = m?.water || '';
+  const notesEl = document.getElementById('m-notes'); if(notesEl) notesEl.value = m?.notes || '';
+}
+function saveMeasurementFromForm() {
+  const wk = parseInt(document.getElementById('measure-wk-sel').value);
+  saveMeasurement(wk);
+}
+function buildWeekOptions(currentWk, defaultWk) {
+  return Array.from({length: currentWk + 1}, (_, w) => {
+    const logged = state.measurements.some(m => m.week === w);
+    const lbl = w === 0 ? `Baseline${logged ? ' ✓' : ''}` : `Week ${w}${logged ? ' ✓' : ''}`;
+    return `<option value="${w}"${w === defaultWk ? ' selected' : ''}>${lbl}</option>`;
+  }).join('');
+}
+function calcDefaultFormWeek(currentWk) {
+  for(let w = 0; w <= currentWk; w++) {
+    if(!state.measurements.some(m => m.week === w)) return w;
+  }
+  return currentWk;
+}
 
 // ══════════════════════════════════════════════
 // STATE
@@ -1135,16 +1161,9 @@ function renderProgress() {
   }
   html+=`</div>`;
 
-  // Measurements — week selector defaults to earliest unlogged week
-  let defaultFormWeek = currentWk;
-  for(let w=0; w<=currentWk; w++) {
-    if(!state.measurements.some(m=>m.week===w)) { defaultFormWeek=w; break; }
-  }
-  const wkOptions = Array.from({length: currentWk+1}, (_,w) => {
-    const logged = state.measurements.some(m=>m.week===w);
-    const lbl = w===0 ? `Baseline${logged?' ✓':''}` : `Week ${w}${logged?' ✓':''}`;
-    return `<option value="${w}"${w===defaultFormWeek?' selected':''}>${lbl}</option>`;
-  }).join('');
+  // Measurements — week selector (logic provided by GEN:SHARED_JS)
+  const defaultFormWeek = calcDefaultFormWeek(currentWk);
+  const wkOptions = buildWeekOptions(currentWk, defaultFormWeek);
 
   html += `
   <div class="section-head">Weekly Measurements</div>
@@ -1201,17 +1220,6 @@ function calcStreak(today) {
   return s;
 }
 
-function onMeasureWkChange(wk) {
-  const m = state.measurements.find(m=>m.week===wk);
-  document.getElementById('m-weight').value = m?.weight || '';
-  document.getElementById('m-fat').value    = m?.bodyFat || '';
-  document.getElementById('m-muscle').value = m?.muscle || '';
-  document.getElementById('m-water').value  = m?.water || '';
-}
-function saveMeasurementFromForm() {
-  const wk = parseInt(document.getElementById('measure-wk-sel').value);
-  saveMeasurement(wk);
-}
 function saveMeasurement(forceWeek) {
   const weight=document.getElementById('m-weight').value;
   const bodyFat=document.getElementById('m-fat').value;
