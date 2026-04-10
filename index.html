@@ -325,6 +325,7 @@ html,body { height:100%; overflow:hidden; background:var(--bg); color:var(--whit
 .measure-form { background:var(--card); border:1px solid var(--border); border-radius:14px; overflow:hidden; }
 .measure-form-title { padding:12px 14px 9px; font-family:'Barlow Condensed',sans-serif; font-size:17px; font-weight:700; letter-spacing:.08em; border-bottom:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; }
 .measure-week-label { font-size:14px; color:var(--gold); font-family:'Barlow Semi Condensed',sans-serif; font-weight:600; }
+.measure-week-select { background:var(--surface); border:1px solid var(--border); border-radius:6px; color:var(--gold); font-family:'Barlow Semi Condensed',sans-serif; font-size:14px; font-weight:600; padding:3px 8px; }
 .measure-grid { display:grid; grid-template-columns:1fr 1fr; gap:1px; background:var(--border); }
 .measure-field { background:var(--card); padding:11px 13px; }
 .measure-field label { display:block; font-size:14px; color:var(--muted); letter-spacing:.03em; text-transform:uppercase; margin-bottom:4px; font-family:'Barlow Condensed',sans-serif; font-weight:600; }
@@ -1134,21 +1135,23 @@ function renderProgress() {
   }
   html+=`</div>`;
 
-  // Measurements — detect if we're on Day 1 and baseline not yet logged
-  const isDay1 = today <= 1;
-  const hasBaseline = state.measurements.some(m=>m.week===0);
-  const showBaseline = isDay1 && !hasBaseline;
-  const formWeek = showBaseline ? 0 : currentWk;
-  const formLabel = showBaseline ? 'SAVE WEEK 0 BASELINE' : `SAVE WEEK ${currentWk} MEASUREMENTS`;
-  const formTitle = showBaseline ? 'Week 0 Baseline — Log Tonight' : 'Log This Week';
-  const formWeekLabel = showBaseline ? 'BASELINE · Mar 29' : `Week ${currentWk} of 13`;
+  // Measurements — week selector defaults to earliest unlogged week
+  let defaultFormWeek = currentWk;
+  for(let w=0; w<=currentWk; w++) {
+    if(!state.measurements.some(m=>m.week===w)) { defaultFormWeek=w; break; }
+  }
+  const wkOptions = Array.from({length: currentWk+1}, (_,w) => {
+    const logged = state.measurements.some(m=>m.week===w);
+    const lbl = w===0 ? `Baseline${logged?' ✓':''}` : `Week ${w}${logged?' ✓':''}`;
+    return `<option value="${w}"${w===defaultFormWeek?' selected':''}>${lbl}</option>`;
+  }).join('');
 
   html += `
   <div class="section-head">Weekly Measurements</div>
   <div class="measure-form">
     <div class="measure-form-title">
-      <span>${formTitle}</span>
-      <span class="measure-week-label">${formWeekLabel}</span>
+      <span>Log Measurements</span>
+      <select id="measure-wk-sel" class="measure-week-select" onchange="onMeasureWkChange(parseInt(this.value))">${wkOptions}</select>
     </div>
     <div class="measure-grid">
       <div class="measure-field"><label>Weight <span class="measure-unit">lbs</span></label><input type="number" id="m-weight" placeholder="185" inputmode="decimal" step="0.1"></div>
@@ -1156,7 +1159,7 @@ function renderProgress() {
       <div class="measure-field"><label>Muscle Mass <span class="measure-unit">lbs</span></label><input type="number" id="m-muscle" placeholder="148" inputmode="decimal" step="0.1"></div>
       <div class="measure-field"><label>Body Water <span class="measure-unit">%</span></label><input type="number" id="m-water" placeholder="55" inputmode="decimal" step="0.1"></div>
     </div>
-    <button class="measure-save-btn" onclick="saveMeasurement(${formWeek})">${formLabel}</button>
+    <button class="measure-save-btn" onclick="saveMeasurementFromForm()">SAVE MEASUREMENTS</button>
   </div>`;
 
   if(state.measurements.length) {
@@ -1185,6 +1188,7 @@ function renderProgress() {
   }
 
   document.getElementById('progressContent').innerHTML = html;
+  onMeasureWkChange(defaultFormWeek);
 }
 
 function calcStreak(today) {
@@ -1197,6 +1201,17 @@ function calcStreak(today) {
   return s;
 }
 
+function onMeasureWkChange(wk) {
+  const m = state.measurements.find(m=>m.week===wk);
+  document.getElementById('m-weight').value = m?.weight || '';
+  document.getElementById('m-fat').value    = m?.bodyFat || '';
+  document.getElementById('m-muscle').value = m?.muscle || '';
+  document.getElementById('m-water').value  = m?.water || '';
+}
+function saveMeasurementFromForm() {
+  const wk = parseInt(document.getElementById('measure-wk-sel').value);
+  saveMeasurement(wk);
+}
 function saveMeasurement(forceWeek) {
   const weight=document.getElementById('m-weight').value;
   const bodyFat=document.getElementById('m-fat').value;
