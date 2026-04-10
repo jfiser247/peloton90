@@ -1004,6 +1004,9 @@ function renderSchedule() {
     html+=`</div>`;
   });
   document.getElementById('scheduleContent').innerHTML = html;
+  const sv=document.querySelector('.scroll-view');
+  const todayEl=document.querySelector('.sched-day-row.today');
+  if(todayEl&&sv){ sv.scrollTop=todayEl.getBoundingClientRect().top-sv.getBoundingClientRect().top-80; }
 }
 
 function renderSchedWeek(wk, days, today) {
