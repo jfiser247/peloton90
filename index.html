@@ -228,6 +228,14 @@ html,body { height:100%; overflow:hidden; background:var(--bg); color:var(--whit
 .day-notes textarea { width:100%; background:transparent; border:none; outline:none; color:var(--white); font-family:'Barlow',sans-serif; font-size:15px; line-height:1.5; padding:10px 14px; resize:none; min-height:70px; font-weight:300; }
 .day-notes textarea::placeholder { color:var(--muted); }
 
+.drink-row { margin:10px 14px 0; }
+.drink-toggle { display:flex; align-items:center; gap:10px; background:var(--card); border:1px solid var(--border); border-radius:12px; padding:12px 14px; cursor:pointer; user-select:none; transition:border-color .2s,background .2s; }
+.drink-toggle.drink-on { border-color:rgba(228,100,80,.4); background:rgba(228,100,80,.07); }
+.drink-toggle-label { flex:1; font-family:'Barlow Condensed',sans-serif; font-size:14px; font-weight:700; letter-spacing:.05em; text-transform:uppercase; color:var(--muted); }
+.drink-toggle.drink-on .drink-toggle-label { color:var(--red); }
+.drink-badge { font-family:'Barlow Condensed',sans-serif; font-size:13px; font-weight:700; letter-spacing:.08em; padding:3px 9px; border-radius:6px; background:var(--surface); color:var(--muted); }
+.drink-toggle.drink-on .drink-badge { background:rgba(228,100,80,.18); color:var(--red); }
+
 .rest-day-card { margin:16px 14px; background:var(--card); border:1px solid var(--border); border-radius:16px; padding:36px 18px; text-align:center; }
 .rest-day-card .rest-icon { font-size:42px; margin-bottom:10px; }
 .rest-day-card h2 { font-family:'Barlow Condensed',sans-serif; font-size:28px; font-weight:900; letter-spacing:.08em; text-transform:uppercase; margin-bottom:8px; }
@@ -355,6 +363,7 @@ html,body { height:100%; overflow:hidden; background:var(--bg); color:var(--whit
 .heatmap-cell.done { background:var(--red); border-color:var(--red); opacity:.85; }
 .heatmap-cell.today { border-color:var(--gold); box-shadow:0 0 0 1px var(--gold); }
 .heatmap-cell.rest-cell { background:rgba(255,255,255,.03); }
+.heatmap-cell.drank { border-color:rgba(228,100,80,.65); }
 
 .empty-history { padding:20px; text-align:center; color:var(--muted); font-size:14px; }
 
@@ -675,7 +684,7 @@ function calcDefaultFormWeek(currentWk) {
 // ══════════════════════════════════════════════
 const START_DATE = new Date(2026, 2, 30);
 
-let state = { viewingDay:1, completed:{}, dayNotes:{}, measurements:[] };
+let state = { viewingDay:1, completed:{}, dayNotes:{}, measurements:[], drinkDays:{} };
 
 function getTodayDay() {
   const t = new Date(); t.setHours(0,0,0,0);
@@ -925,6 +934,15 @@ function renderToday() {
     </div>`;
   }
 
+  const hadDrink = !!state.drinkDays[day];
+  html += `
+  <div class="drink-row">
+    <div class="drink-toggle${hadDrink?' drink-on':''}" onclick="toggleDrink(${day})">
+      <span class="drink-toggle-label">🍷 Alcohol today?</span>
+      <span class="drink-badge">${hadDrink?'YES':'NO'}</span>
+    </div>
+  </div>`;
+
   document.getElementById('todayContent').innerHTML = html;
 }
 
@@ -941,6 +959,10 @@ function markDayComplete(day) {
   if(!all) showToast('🔥 Day complete!');
 }
 function saveNote(day,text) { state.dayNotes[day]=text; saveState(); }
+function toggleDrink(day) {
+  state.drinkDays[day] = !state.drinkDays[day];
+  saveState(); renderToday(); renderProgress();
+}
 function changeDay(d) { state.viewingDay=Math.max(1,Math.min(90,state.viewingDay+d)); saveState(); renderToday(); }
 
 // ══════════════════════════════════════════════
@@ -1073,6 +1095,8 @@ function renderProgress() {
   const circ = 2*Math.PI*46;
   const offset = circ-(pct/100)*circ;
   const currentWk = Math.ceil(Math.min(today,90)/7);
+  const drinkCount = Object.values(state.drinkDays).filter(Boolean).length;
+  let afStreak = 0; for(let d=today; d>=1; d--) { if(state.drinkDays[d]) break; afStreak++; }
 
   // Body fat progress
   const latestBF = state.measurements.length ? parseFloat(state.measurements[state.measurements.length-1].bodyFat)||12.5 : 12.5;
@@ -1094,6 +1118,10 @@ function renderProgress() {
           <div class="prog-stat"><div class="prog-stat-val" style="color:var(--green)">${done}</div><div class="prog-stat-lbl">Done</div></div>
           <div class="prog-stat"><div class="prog-stat-val" style="color:var(--gold)">${streak}🔥</div><div class="prog-stat-lbl">Streak</div></div>
           <div class="prog-stat"><div class="prog-stat-val" style="color:var(--purple)">${training-done}</div><div class="prog-stat-lbl">Left</div></div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px;">
+          <div class="prog-stat"><div class="prog-stat-val" style="color:${drinkCount?'var(--red)':'var(--muted)'}">${drinkCount}</div><div class="prog-stat-lbl">Drink Days</div></div>
+          <div class="prog-stat"><div class="prog-stat-val" style="color:var(--teal)">${afStreak}</div><div class="prog-stat-lbl">Sober Streak</div></div>
         </div>
       </div>
     </div>
@@ -1159,8 +1187,8 @@ function renderProgress() {
   <div class="heatmap-grid">`;
 
   for(let d=1;d<=90;d++) {
-    const done2=isDayFullyDone(d), isRest=SCHEDULE[d]===null, isToday=d===today;
-    html+=`<div class="heatmap-cell${done2?' done':''}${isRest?' rest-cell':''}${isToday?' today':''}" title="Day ${d}"></div>`;
+    const done2=isDayFullyDone(d), isRest=SCHEDULE[d]===null, isToday=d===today, drank=!!state.drinkDays[d];
+    html+=`<div class="heatmap-cell${done2?' done':''}${isRest?' rest-cell':''}${isToday?' today':''}${drank?' drank':''}" title="Day ${d}${drank?' · 🍷':''}"></div>`;
   }
   html+=`</div>`;
 
