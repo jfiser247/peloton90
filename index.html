@@ -970,7 +970,7 @@ function renderToday() {
             ${wk.note ? `<div class="workout-note">${wk.note}</div>` : ''}
             ${wk.pullupNote ? `<div class="pullup-badge">💪 ${wk.pullupNote}</div>` : ''}
           </div>
-          ${wk.type!=='pullups'?`<button class="peloton-link" onclick="openClassModal(${day},${absIdx})">▶ Open in Peloton</button>`:''}
+          ${(wk.type==='hiit'||wk.type==='strength'||wk.type==='bootcamp')?`<button class="peloton-link" onclick="openClassModal(${day},${absIdx})">▶ Open in Peloton</button>`:''}
         </div>`;
       });
       s += `</div>`;
