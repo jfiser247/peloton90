@@ -529,7 +529,7 @@ function pelotonUrl(wk) {
 
   // Direct link when we have the catalog class ID (most workouts after enrichment)
   if(wk.classId) {
-    return `https://members.onepeloton.com/classes/${discipline}/${wk.classId}`;
+    return `https://members.onepeloton.com/classes/${discipline}?modal=classDetailsModal&classId=${wk.classId}`;
   }
 
   // Fallback search URL for hardcoded workouts without a catalog ID

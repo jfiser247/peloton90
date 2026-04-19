@@ -1,7 +1,7 @@
 // ── Peloton 90 Service Worker ──
 // Bump CACHE version any time you update index.html so installed users
 // get the fresh version (old cache is auto-deleted on activate).
-const CACHE = 'p90-v13';
+const CACHE = 'p90-v14';
 
 // Files to pre-cache on install. Add any additional assets here.
 const ASSETS = [
